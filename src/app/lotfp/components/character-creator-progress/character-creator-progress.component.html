@@ -1,0 +1,25 @@
+<div id="characterProgress" class="tabs">
+  <ul>
+    <li [ngClass]="{'is-active': step == 'start'}">
+      <a routerLink="/lotfp/characters/{{character.id}}">Hero</a>
+    </li>
+    <li [ngClass]="{'is-active': step == 'ability'}">
+      <a routerLink="/lotfp/characters/{{character.id}}/abilities">Abilities</a>
+    </li>
+    <li [ngClass]="{'is-active': step == 'class'}">
+      <a routerLink="/lotfp/characters/{{character.id}}/class">Class</a>
+    </li>
+    <li [ngClass]="{'is-active': step == 'skills'}">
+      <a routerLink="/lotfp/characters/{{character.id}}/skills">Skills</a>
+    </li>
+    <li [ngClass]="{'is-active': step == 'equipment'}">
+      <a routerLink="/lotfp/characters/{{character.id}}/equipment">Equipment</a>
+    </li>
+    <li [ngClass]="{'is-active': step == 'magic'}">
+      <a routerLink="/lotfp/characters/{{character.id}}/magic">Magic</a>
+    </li>
+    <li [ngClass]="{'is-active': step == 'summary'}">
+        <a routerLink="/lotfp/characters/{{character.id}}/summary">Character sheet</a>
+      </li>
+  </ul>
+</div>

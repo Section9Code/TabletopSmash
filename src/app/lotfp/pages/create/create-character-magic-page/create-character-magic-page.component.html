@@ -1,0 +1,110 @@
+<div class="container">
+  <character-creator-progress [step]="'magic'" [character]="character"></character-creator-progress>
+  <div class="columns is-desktop">
+    <div class="column is-two-thirds">
+
+      <div *ngIf="!character.level1Spells || character.level1Spells === 0">
+        <section class="section">
+          <h3>No magic for you</h3>
+          <p>
+            Your character is not a magic user, there is nothing for you here... move along
+          </p>
+        </section>
+        <section class="section">
+          <button class="button is-primary" (click)="next()">Next</button>
+        </section>
+      </div>
+
+      <!-- Magic user section -->
+      <section class="section" *ngIf="character.level1Spells && character.level1Spells > 0">
+        <h3>Magic</h3>
+        <div class="columns">
+          <div class="column is-half">
+            <h4>{{ character.characterClass }} spells</h4>
+            <p>
+              You can select a number of spells to fill your spell slots on the right.
+            </p>
+          </div>
+          <div class="is-half">
+
+            <!-- Spell list -->
+            <div *ngIf="character.spells">
+              <h4>Character spells</h4>
+              <div *ngFor="let spell of character.spells">
+                - {{ spell.name }} (Lvl:{{ spell.level }}) -
+                <a [routerLink]="" (click)="removeSpell(spell)">Remove</a>
+              </div>
+            </div>
+
+            <div *ngIf="!character.spells || character.spells.length === 0">
+              -- No spells selected --
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-one-third">
+            <h5>Level 1</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="1" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+          <div class="column is-one-third">
+            <h5>Level 2</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="2" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+          <div class="column is-one-third">
+            <h5>Level 3</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="3" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-one-third">
+            <h5>Level 4</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="4" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+          <div class="column is-one-third">
+            <h5>Level 5</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="5" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+          <div class="column is-one-third">
+            <h5>Level 6</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="6" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-one-third">
+            <h5>Level 7</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="7" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+          <div class="column is-one-third">
+            <h5>Level 8</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="8" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+          <div class="column is-one-third">
+            <h5>Level 9</h5>
+            <spell-list [spells]="spellsForUser" [levelToShow]="9" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
+          </div>
+        </div>
+
+
+
+      </section>
+
+      <!-- Next button -->
+      <section class="section">
+        <button class="button is-primary" *ngIf="character.spells && character.spells.length > 0" (click)="next()">Next</button>
+      </section>
+    </div>
+
+
+    <!-- Summary information -->
+    <div class="column is-one-third">
+      <character-summary [character]="character"></character-summary>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+<div class="level-item has-text-centered">
+  <span>
+    <p class="heading">{{ title }}</p>
+    <p class="title">
+      {{ rating }} in 6<br/>
+      <span *ngIf="canBeAdjusted">
+        <a [routerLink]="" class="button"><span class="icon is-small" (click)="increment()"><i class="fa fa-plus"></i></span></a>
+        <a [routerLink]="" class="button"><span class="icon is-small" (click)="decrement()"><i class="fa fa-minus"></i></span></a>
+      </span>
+    </p>
+  </span>
+</div>

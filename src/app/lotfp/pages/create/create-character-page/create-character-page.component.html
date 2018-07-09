@@ -1,0 +1,57 @@
+<character-creator-progress [step]="'start'" [character]="character"></character-creator-progress>
+
+<section class="section">
+  <div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+      <input class="input" [(ngModel)]="character.name" type="text" placeholder="Your characters name">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Background</label>
+    <div class="control">
+      <textarea class="textarea" [(ngModel)]="character.background" placeholder="A little information about your character"></textarea>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Level</label>
+    <div class="control">
+      <!-- <input class="input" [(ngModel)]="character.level" type="text" placeholder="Your characters starting level"> -->
+      <div class="select">
+        <select [(ngModel)]="character.level">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Is Public</label>
+    <label class="checkbox">
+        <input type="checkbox" [(ngModel)]="character.isPublic">
+        Let others find this character and use it in their own games (They cannot edit your character, and you can stop it being public at any time).
+      </label>
+  </div>
+
+
+</section>
+
+<section class="section">
+  <button class="button is-primary" (click)="next()">Next</button>
+</section>

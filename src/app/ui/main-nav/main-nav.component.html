@@ -1,0 +1,56 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" routerLink="/">Tabletop Smash</a>
+
+        <a id="navToggle" role="button" class="navbar-burger" (click)="toggleCollapse()" [ngClass]="{'is-active': show}">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <!-- Menu for users who are NOT logged in -->
+    <div class="navbar-menu">
+        <!-- LotFP ================================================== -->
+        <div class="navbar-item has-dropdown is-hoverable is-right">
+            <a class="navbar-link">
+                Lamentations of the Flame Princess
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" routerLink="/lotfp/public">
+                    Public characters
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item" routerLink="/lotfp/mine">
+                    My characters
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-end">
+            <!-- Login -->
+            <a *ngIf="!currentUser" class="navbar-item" routerLink="/login">Login</a>
+
+            <!-- User details -->
+            <div *ngIf="currentUser" class="navbar-item has-dropdown is-hoverable is-right">
+                <a class="navbar-link">
+                    {{ currentUser.displayName }}
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        <span class="icon"><i class="fas fa-cog"></i></span> Settings
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" routerLink="''" (click)="logout()">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</nav>

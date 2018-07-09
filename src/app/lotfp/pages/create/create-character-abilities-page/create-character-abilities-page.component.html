@@ -1,0 +1,36 @@
+<character-creator-progress [step]="'ability'" [character]="character"></character-creator-progress>
+
+<section class="section">
+  <h3>Abilities</h3>
+  <p>
+    These determin how good your character is a certain traits.
+  </p>
+  <button class="button is-primary" *ngIf="!character.charisma" (click)="rollAbilities()">Roll abilities</button>
+</section>
+
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <ability-score [ability]="character.charisma" [title]="'Charisma'"></ability-score>
+  </div>
+  <div class="level-item has-text-centered">
+    <ability-score [ability]="character.constitution" [title]="'Constitution'"></ability-score>
+  </div>
+  <div class="level-item has-text-centered">
+    <ability-score [ability]="character.dexterity" [title]="'Dexterity'"></ability-score>
+  </div>
+  <div class="level-item has-text-centered">
+    <ability-score [ability]="character.intelligence" [title]="'Intelligence'"></ability-score>
+  </div>
+  <div class="level-item has-text-centered">
+    <ability-score [ability]="character.strength" [title]="'Strength'"></ability-score>
+  </div>
+  <div class="level-item has-text-centered">
+    <ability-score [ability]="character.wisdom" [title]="'Wisdom'"></ability-score>
+  </div>
+</nav>
+
+
+<section class="section" *ngIf="character.charisma">
+  <button class="button is-primary" (click)="next()">Next</button>
+  <button class="button is-light" (click)="rollAbilities()">Roll again</button>
+</section>

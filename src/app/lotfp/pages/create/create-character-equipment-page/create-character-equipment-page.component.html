@@ -1,0 +1,54 @@
+<div class="container">
+  <character-creator-progress [step]="'equipment'" [character]="character"></character-creator-progress>
+  <div class="columns is-desktop">
+    <div class="column is-two-thirds">
+
+      <!-- Header -->
+      <section class="section">
+        <div class="columns">
+          <div class="column is-three-fifths">
+            <h3>Equipment</h3>
+            <p>
+              Your adventurer needs equipment, stock them up here. Don't forget food.
+            </p>
+          </div>
+          <div class="column is-one-fifth">
+            <span class="has-text-centered">
+              <p class="heading">Silver
+                <br/>pieces</p>
+              <p class="title">
+                {{ character.silver | number }}
+                <br/>
+              </p>
+            </span>
+          </div>
+          <div class="column is-one-fifth">
+            <span class="has-text-centered">
+              <p class="heading">Encumberance
+                <br/>points</p>
+              <p class="title">
+                {{ character.encumberancePoints | number }}
+                <br/>
+              </p>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Equipment list -->
+      <equipment-list [character]="character"></equipment-list>
+
+      <!-- Next button -->
+      <section class="section">
+        <button class="button is-primary" (click)="next()">Next</button>
+      </section>
+    </div>
+
+
+    <!-- Summary information -->
+    <div class="column is-one-third">
+      <character-summary [character]="character"></character-summary>
+    </div>
+  </div>
+
+</div>

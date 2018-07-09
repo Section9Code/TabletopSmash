@@ -1,0 +1,271 @@
+<h4>{{ character.name }}</h4>
+<span>
+  Level:
+  <b>{{ character.level }}</b>
+  <br/> Class:
+  <b>{{ character.characterClass }}</b>
+  <br/> Silver pieces:
+  <b>{{ character.silver | number }} sp</b>
+  <br/> Encumberance points:
+  <b>{{ character.encumberancePoints }} </b>
+
+  <span class="tag is-white" *ngIf="character.encumberancePoints <= 1">Unencumbered</span>
+  <span class="tag is-light" *ngIf="character.encumberancePoints === 2">Lightly encumbered</span>
+  <span class="tag is-info" *ngIf="character.encumberancePoints === 3">Heavily encumbered</span>
+  <span class="tag is-warning" *ngIf="character.encumberancePoints === 4">Severely encumbered</span>
+  <span class="tag is-danger" *ngIf="character.encumberancePoints >= 5">Over encumbered</span>
+
+</span>
+
+<hr/>
+
+<h5>Abilities</h5>
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <td class="has-text-centered">Cha</td>
+      <td class="has-text-centered">Con</td>
+      <td class="has-text-centered">Dex</td>
+      <td class="has-text-centered">Int</td>
+      <td class="has-text-centered">Str</td>
+      <td class="has-text-centered">Wis</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="has-text-centered">{{ character.charisma | abilityScore }}
+        <span class="tag">{{ character.charisma | abilityModifier}}</span>
+      </td>
+      <td class="has-text-centered">{{ character.constitution | abilityScore }}
+        <span class="tag">{{ character.constitution | abilityModifier}}</span>
+      </td>
+      <td class="has-text-centered">{{ character.dexterity | abilityScore }}
+        <span class="tag">{{ character.dexterity | abilityModifier}}</span>
+      </td>
+      <td class="has-text-centered">{{ character.intelligence | abilityScore }}
+        <span class="tag">{{ character.intelligence | abilityModifier}}</span>
+      </td>
+      <td class="has-text-centered">{{ character.strength | abilityScore }}
+        <span class="tag">{{ character.strength | abilityModifier}}</span>
+      </td>
+      <td class="has-text-centered">{{ character.wisdom | abilityScore }}
+        <span class="tag">{{ character.wisdom | abilityModifier}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<h5>Saving throws</h5>
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <td class="has-text-centered">Paralyse</td>
+      <td class="has-text-centered">Poison</td>
+      <td class="has-text-centered">Breath</td>
+      <td class="has-text-centered">Device</td>
+      <td class="has-text-centered">Magic</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="has-text-centered">{{ character.paralyseSavingThrow }} </td>
+      <td class="has-text-centered">{{ character.poisonSavingThrow }} </td>
+      <td class="has-text-centered">{{ character.breathSavingThrow }} </td>
+      <td class="has-text-centered">{{ character.deviceSavingThrow }} </td>
+      <td class="has-text-centered">{{ character.magicSavingThrow }} </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<div *ngIf="character.attackBonus">
+  <h5>Attack bonus</h5>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <td class="has-text-centered">Base AB</td>
+        <td class="has-text-centered">Melee AB</td>
+        <td class="has-text-centered">Ranged AB</td>
+        <td class="has-text-centered">Surprise
+          <br/>chance</td>
+        <td class="has-text-centered">Max HP</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="has-text-centered">{{ character.attackBonus }}</td>
+        <td class="has-text-centered">{{ character.attackBonus + character.strength.modifier }}</td>
+        <td class="has-text-centered">{{ character.attackBonus + character.dexterity.modifier }}</td>
+        <td class="has-text-centered">{{ character.surpriseChange }} in 6</td>
+        <td class="has-text-centered">{{ character.hitPoints }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr/>
+
+<div *ngIf="character.dexterity">
+  <h5>Armour class</h5>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <td class="has-text-centered">Melee AC</td>
+        <td class="has-text-centered">Ranged AC</td>
+        <td class="has-text-centered">Without shield</td>
+        <td class="has-text-centered">Surprised</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="has-text-centered">{{ character.acMelee }}</td>
+        <td class="has-text-centered">{{ character.acRanged }}</td>
+        <td class="has-text-centered">{{ character.acWithoutShield }}</td>
+        <td class="has-text-centered">{{ character.acSurprised }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr/>
+
+<h5>Skills</h5>
+<table class="table is-fullwidth">
+  <tbody>
+    <tr>
+      <td class="has-text-centered">Architecture
+        <br/> {{ character.architectureSkill }} in 6</td>
+      <td class="has-text-centered">Bushcraft
+        <br/>{{ character.bushcraftSkill }} in 6</td>
+      <td class="has-text-centered">Climbing
+        <br/>{{ character.climbingSkill }} in 6</td>
+      <td class="has-text-centered">languages
+        <br/>{{ character.languagesSkill }} in 6</td>
+    </tr>
+    <tr>
+      <td class="has-text-centered">Open doors
+        <br/> {{ character.openDoorsSkill }} in 6</td>
+      <td class="has-text-centered">Search
+        <br/>{{ character.searchSkill }} in 6</td>
+      <td class="has-text-centered">Sleight of hand
+        <br/>{{ character.sleightOfHandSkill }} in 6</td>
+      <td class="has-text-centered">Sneak attack
+        <br/>{{ character.sneakAttackSkill }} in 6</td>
+    </tr>
+    <tr>
+      <td class="has-text-centered"></td>
+      <td class="has-text-centered">Stealth
+        <br/>{{ character.stealthSkill }} in 6</td>
+      <td class="has-text-centered">Tinkering
+        <br/>{{ character.tinkeringSkill }} in 6</td>
+      <td class="has-text-centered"></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr *ngIf="character.level1Spells > 0" />
+
+<div *ngIf="character.level1Spells > 0">
+  <h5>Spells</h5>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <td>Level</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>No of Spells</td>
+        <td>{{ character.level1Spells }}</td>
+        <td>{{ character.level2Spells }}</td>
+        <td>{{ character.level3Spells }}</td>
+        <td>{{ character.level4Spells }}</td>
+        <td>{{ character.level5Spells }}</td>
+        <td>{{ character.level6Spells }}</td>
+        <td>{{ character.level7Spells }}</td>
+        <td>{{ character.level8Spells }}</td>
+        <td>{{ character.level9Spells }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Spell list -->
+  <div *ngIf="character.spells">
+    <div *ngFor="let spell of character.spells">
+      - {{ spell.name }} (Lvl:{{ spell.level }}) -
+      <a [routerLink]="" (click)="removeSpell(spell)">Remove</a>
+    </div>
+  </div>
+
+  <div *ngIf="!character.spells || character.spells.length === 0">
+    -- No spells selected --
+  </div>
+
+</div>
+
+<hr/>
+
+<h5>Equipment</h5>
+<div *ngIf="this.character.armour">
+  <b>Armour</b>
+  <br/> {{ this.character.armour.name }} - AC: {{ this.character.armour.baseAc }} -
+  <a [routerLink]="" (click)="sellArmour()">Sell</a>
+</div>
+<div *ngIf="this.character.shield">
+  <b>Shield</b>
+  <br/> {{ this.character.shield.name }} - AC: {{ this.character.shield.baseAc }} -
+  <a [routerLink]="" (click)="sellShield()">Sell</a>
+</div>
+<div *ngIf="this.character.weapons && this.character.weapons.length > 0">
+  <b>Melee weapons</b>
+  <div *ngFor="let item of this.character.weapons">
+    <span *ngIf="!item.encumbering" class="icon is-small">
+      <i class="fa fa-feather" aria-hidden="true"></i>
+    </span>
+    <span *ngIf="item.oversized" class="icon is-small is-warning">
+      <i class="fa fa-weight-hanging" aria-hidden="true"></i>
+    </span>
+    {{ item.name }} - {{ item.attackDiceCount }}d{{ item.attackDiceSize }} -
+    <a [routerLink]="" (click)="sellWeapon(item.name)">Sell</a>
+  </div>
+</div>
+<div *ngIf="this.character.rangedWeapons && this.character.rangedWeapons.length > 0">
+  <b>Ranged weapons</b>
+  <div *ngFor="let item of this.character.rangedWeapons">
+    <span *ngIf="!item.encumbering" class="icon is-small">
+      <i class="fa fa-feather" aria-hidden="true"></i>
+    </span>
+    <span *ngIf="item.oversized" class="icon is-small is-warning">
+      <i class="fa fa-weight-hanging" aria-hidden="true"></i>
+    </span>
+    {{ item.name }} - {{ item.attackDiceCount }}d{{ item.attackDiceSize }} - {{ item.shortRange}}/{{ item.mediumRange }}/{{ item.longRange
+    }} -
+    <a [routerLink]="" (click)="sellRangedWeapon(item.name)">Sell</a>
+  </div>
+</div>
+<div *ngIf="this.character.equipment && this.character.equipment.length > 0">
+  <b>Other equipment</b>
+  <br/>
+  <div *ngFor="let item of this.character.equipment">
+    <span *ngIf="!item.encumbering" class="icon is-small">
+      <i class="fa fa-feather" aria-hidden="true"></i>
+    </span>
+    <span *ngIf="item.oversized" class="icon is-small is-warning">
+      <i class="fa fa-weight-hanging" aria-hidden="true"></i>
+    </span>
+    {{ item.name }} -
+    <a [routerLink]="" (click)="sellEquipment(item.name)">Sell</a>
+  </div>
+</div>

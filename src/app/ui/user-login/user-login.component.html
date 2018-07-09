@@ -1,0 +1,64 @@
+<h1>Login</h1>
+
+<div *ngIf="!(auth.user | async); else alreadyLoggedIn">
+
+  <div class="columns">
+    <div class="column is-half">
+      <h3>Social Login</h3>
+      <p>
+        Login using one of your social media accounts. We don't access your account we just use it to validate who you are.
+      </p>
+      <div class="buttons is-centered">
+        <a [routerLink]="" (click)="signInWithGoogle()" class="button is-outline is-large">
+          <span class="icon is-medium">
+            <i class="fab fa-google"></i>
+          </span>
+          <span>Login with Google</span>
+        </a>
+
+        <br/>
+
+        <a [routerLink]="" (click)="signInWithGithub()" class="button is-outline is-large">
+          <span class="icon is-medium">
+            <i class="fab fa-github"></i>
+          </span>
+          <span>Login with Github</span>
+        </a>
+
+        <br/>
+
+        <a [routerLink]="" (click)="signInWithFacebook()" class="button is-outline is-large">
+          <span class="icon is-medium">
+            <i class="fab fa-facebook"></i>
+          </span>
+          <span>Login with Facebook</span>
+        </a>
+
+        <br/>
+
+        <a [routerLink]="" (click)="signInWithTwitter()" class="button is-outline is-large">
+          <span class="icon is-medium">
+            <i class="fab fa-twitter"></i>
+          </span>
+          <span>Login with Twitter</span>
+        </a>
+      </div>
+
+    </div>
+
+
+    <div class="column is-half">
+      <user-form></user-form>
+    </div>
+  </div>
+
+  <section clas="section"></section>
+
+</div>
+
+<ng-template #alreadyLoggedIn>
+  <p class="text-success">
+    You are logged in
+    <i class="fa fa-thumbs-up"></i>
+  </p>
+</ng-template>

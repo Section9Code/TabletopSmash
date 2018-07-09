@@ -1,0 +1,49 @@
+<div class="container is-fluid">
+  <div class="columns is-multiline">
+    <div class="column is-one-half" *ngFor="let party of parties">
+
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <p class="title is-4">{{ party.name }}</p>
+            <p class="subtitle is-6">@tag</p>
+            {{ party.description }}
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a [routerLink]="" class="card-footer-item" (click)="edit(character.id)">Edit</a>
+          <a [routerLink]="" (click)="delete(character.id)" class="card-footer-item">Delete</a>
+        </footer>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <button class="button is-primary" (click)="showAddParty()">Add party</button>
+</section>
+
+<!-- === MODAL DIALOGS ============================================================================ -->
+<modal-dialog #partyModal [title]="'Add party'" (saved)="partyModalSaved()">
+  <!-- Name -->
+  <form [formGroup]="partyForm">
+    <div class="field">
+      <label class="label">Party name</label>
+      <div class="control">
+        <input class="input" [ngClass]="{'is-danger': partyForm.controls.name.invalid}" type="text" formControlName="name" placeholder="Party name">
+      </div>
+      <p class="help">The name of your new party</p>
+    </div>
+
+    <!-- Description -->
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control">
+        <textarea class="textarea" [ngClass]="{'is-danger': partyForm.controls.description.invalid}" formControlName="description"
+          placeholder="Party description"></textarea>
+      </div>
+      <p class="help">A reminder of what this party is for</p>
+    </div>
+  </form>
+</modal-dialog>

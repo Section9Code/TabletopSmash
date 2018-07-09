@@ -1,0 +1,50 @@
+<div class="container">
+  <character-creator-progress [step]="'skills'" [character]="character"></character-creator-progress>
+  <div class="columns is-desktop">
+    <div class="column is-two-thirds">
+
+      <section class="section">
+        <h3>Skills</h3>
+        <p>
+          These are the special abilities your character has. Only the specialist can adjust their skills.
+        </p>
+        <p>
+            You have <b>{{ character.skillPointsToSpend }}</b> points to spend
+        </p>
+      </section>
+
+      <section class="section">
+          <div class="columns is-desktop">
+            <div class="column is-one-quarter"><skill-rating [title]="'Architecture'" [rating]="character.architectureSkill" [lowerLimit]="character.architectureSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+            <div class="column is-one-quarter"><skill-rating [title]="'Bushcraft'" [rating]="character.bushcraftSkill" [lowerLimit]="character.bushcraftSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+            <div class="column is-one-quarter"><skill-rating [title]="'Climbing'" [rating]="character.climbingSkill" [lowerLimit]="character.climbingSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+            <div class="column is-one-quarter"><skill-rating [title]="'Languages'" [rating]="character.languagesSkill" [lowerLimit]="character.languagesSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+          </div>
+          <div class="columns is-desktop">
+            <div class="column is-one-quarter"><skill-rating [title]="'Open doors'" [rating]="character.openDoorsSkill" [lowerLimit]="character.openDoorsSkillMin" [pointsToSpend]="character.skillPointsToSpend" [canBeAdjusted]="false" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+            <div class="column is-one-quarter"><skill-rating [title]="'Search'" [rating]="character.searchSkill" [lowerLimit]="character.searchSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+            <div class="column is-one-quarter"><skill-rating [title]="'Sleight of hand'" [rating]="character.sleightOfHandSkill" [lowerLimit]="character.sleightOfHandSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+            <div class="column is-one-quarter"><skill-rating [title]="'Sneak attack'" [rating]="character.sneakAttackSkill" [lowerLimit]="character.sneakAttackSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+          </div>
+          <div class="columns is-desktop">
+            <div class="column is-one-quarter is-offset-one-quarter"><skill-rating [title]="'Stealth'" [rating]="character.stealthSkill" [lowerLimit]="character.stealthSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+            <div class="column is-one-quarter"><skill-rating [title]="'Tinkering'" [rating]="character.tinkeringSkill" [lowerLimit]="character.tinkeringSkillMin" [pointsToSpend]="character.skillPointsToSpend" (ratingChanged)="updateSkill($event)"></skill-rating></div>
+          </div>
+      </section>
+
+      <!-- Next button -->
+      <section class="section" *ngIf="character.skillPointsToSpend === 0">
+        <button class="button is-primary" *ngIf="character.characterClass" (click)="next()">Next</button>
+      </section>
+    
+      </div>
+
+
+      <!-- Summary information -->
+      <div class="column is-one-third">
+        <character-summary [character]="character"></character-summary>
+      </div>
+    </div>
+
+    
+  </div>

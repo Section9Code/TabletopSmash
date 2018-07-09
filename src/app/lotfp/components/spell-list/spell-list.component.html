@@ -1,0 +1,6 @@
+<ul> 
+  <li *ngFor="let spell of displaySpells">
+    <a *ngIf="showSelect" [routerLink]="" (click)="selectSpell(spell)">{{ spell.name }}</a>
+    <span *ngIf="!showSelect">{{ spell.name }}</span>
+  </li>
+</ul>

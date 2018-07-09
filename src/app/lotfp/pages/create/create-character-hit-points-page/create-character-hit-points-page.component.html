@@ -1,0 +1,85 @@
+<div class="container">
+
+  <character-creator-progress [step]="'class'" [character]="character"></character-creator-progress>
+  <div class="columns is-desktop">
+    <div class="column is-two-thirds">
+
+      <!-- Class ======================================================================================= -->
+      <div class="section">
+        <h3>Class</h3>
+        <p>
+          What class do you want your character to be, some classes are more suited to certain abilities.
+        </p>
+      </div>
+      <div class="columns is-multiline">
+
+        <div *ngFor="let characterClass of allClasses" class="column is-half">
+
+          <div class="card">
+            <div class="card-content">
+              <div class="content">
+                <span class="is-size-5">
+                  <b>{{ characterClass.name }}</b>
+                </span>
+                <br/> {{ characterClass.description }}
+              </div>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item" *ngIf="character.characterClass && character.characterClass === characterClass.name">
+                <span class="tag is-info">Selected</span>
+              </p>
+              <p class="card-footer-item" *ngIf="!character.characterClass || character.characterClass !== characterClass.name">
+                <a [routerLink]="" (click)="selectClass(characterClass)">Select {{ characterClass.name }}</a>
+              </p>
+            </footer>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Hit Points ================================================================================== -->
+      <div *ngIf="character.characterClass" class="section">
+        <h3>{{character.characterClass}} features</h3>
+        <p>
+          Now you have selected your class roll your hit points and starting wealth.
+        </p>
+        <button class="button is-primary" *ngIf="!character.hitPoints" (click)="rollScores()">Roll hit points</button>
+
+        <nav class="level" *ngIf="character.hitPoints">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Hit Points</p>
+              <p class="title">{{ character.hitPoints}}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Attack Bonus</p>
+              <p class="title">{{ character.attackBonus}}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Silver Pieces</p>
+              <p class="title">{{ character.silver | number }} sp</p>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+
+      <!-- Next button -->
+      <section class="section" *ngIf="character.characterClass && character.hitPoints">
+        <button class="button is-primary" (click)="next()">Next</button>
+        <button class="button is-light" (click)="rollScores()">Roll again</button>
+      </section>
+
+    </div>
+
+    <!-- Summary information -->
+    <div class="column is-one-third">
+      <character-summary [character]="character"></character-summary>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="outsideWrapper">
+    <div class="insideWrapper">
+        <img #sheet1 src="/assets/images/sheets/lotfpPage1.jpg" class="coveredImage">
+        <canvas #sheet1Canvas (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas" width="1000" height="1414"></canvas>
+    </div>
+</div>
+
+<div class="outsideWrapper pagebreak">
+    <div class="insideWrapper">
+        <img #sheet2 src="/assets/images/sheets/lotfpPage2.jpg" class="coveredImage">
+        <canvas #sheet2Canvas (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)"  class="coveringCanvas" width="1000" height="1414"></canvas>
+    </div>
+</div>

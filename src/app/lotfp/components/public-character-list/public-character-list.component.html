@@ -1,0 +1,37 @@
+
+<div class="container is-fluid">
+    <div class="columns is-multiline">
+      <div class="column is-one-third" *ngFor="let character of characters">
+  
+        <div class="card is-warning" [ngClass]="{'is-info': true}">
+          <div class="card-content">
+            <div class="content">
+              <p class="title is-4">
+                {{ character.name }}
+              </p>
+              <div class="tags">
+                <span *ngIf="character.characterClass" class="tag">{{ character.characterClass }}</span>
+                <span class="tag">Level {{ character.level }}</span>
+                <span *ngIf="character.inProgress" class="tag is-info">In Progress</span>
+              </div>
+              {{ character.background }}
+              <br>
+              <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
+            </div>
+          </div>
+          <footer class="card-footer">
+            <a [routerLink]="[character.id]" class="card-footer-item">Character sheet</a>
+            <a [routerLink]="" class="card-footer-item" (click)="copyCharacter(character)">Copy</a>
+          </footer>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+<!-- Pagination -->
+<section class="section">
+  <button class="button is-outline" [disabled]="!showPrev" (click)="previous()">Previous</button>
+  <button class="button is-outline" [disabled]="!showNext" (click)="next()">Next</button>
+</section>

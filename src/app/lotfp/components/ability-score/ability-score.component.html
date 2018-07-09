@@ -1,0 +1,7 @@
+<div>
+    <p class="heading">{{ title }}</p>
+    <p class="title" *ngIf="ability">
+      {{ ability | abilityScore }}
+      <span class="tag is-light is-large" [ngClass]="{'is-success': ability.modifier > 0, 'is-danger': ability.modifier < 0}">{{ ability | abilityModifier }}</span>
+    </p>
+  </div>
