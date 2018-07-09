@@ -1,0 +1,26 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+  	// Characters
+  	match /characters/{characterId} {
+    	allow create: if request.auth.uid != null;  // Allow anyone logged in to create a character
+    	allow read;																	// Allow anyone to read a character
+    	allow update, delete: if request.auth.uid == resource.data.owner;	// Only the owner can update or delete a character
+    }
+    
+    // Parties
+    match /parties/{partyId} {
+    	allow create: if request.auth.uid != null;  // Allow anyone logged in to create a party
+    	allow read;																	// Allow anyone to read a party
+    	allow update, delete: if request.auth.uid == resource.data.owner;	// Only the owner can update or delete a character
+    }
+    
+    // Limit access to the users documents.
+    // Only allow users to read or update their own document
+    // Never allow them to delete it 
+    match /users/{userId} {
+	    allow read, update: if request.auth.uid == userId;
+      allow create: if request.auth.uid != null;
+    }
+  }
+}
