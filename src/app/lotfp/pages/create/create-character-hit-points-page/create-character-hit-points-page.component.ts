@@ -58,6 +58,7 @@ export class CreateCharacterHitPointsPageComponent implements OnInit, OnDestroy 
       hitPoints: null,
       attackBonus: classAbilities.attackBonus,
       surpriseChange: charClass.surpriseChance,
+      enhancedCombatOptions: charClass.enhancedCombatOptions,
 
       // Saving throws
       paralyseSavingThrow: classAbilities.savingThrows.paralyze,
