@@ -7,6 +7,7 @@ import { NotifyService } from './notify.service';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap, startWith, tap, filter } from 'rxjs/operators';
 import { ToastyService } from 'ng2-toasty';
+import { TrackingService } from './tracking.service';
 
 export interface User {
   uid: string;
@@ -24,8 +25,8 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    // private notify: NotifyService
-    private toast: ToastyService
+    private toast: ToastyService,
+    private tracking: TrackingService
   ) {
     // Get the current state of the users authentication
     this.user = this.afAuth.authState.pipe(
@@ -49,21 +50,25 @@ export class AuthService {
 
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
+    this.tracking.trackLogin('Google');
     return this.oAuthLogin(provider);
   }
 
   githubLogin() {
     const provider = new firebase.auth.GithubAuthProvider();
+    this.tracking.trackLogin('Github');
     return this.oAuthLogin(provider);
   }
 
   facebookLogin() {
     const provider = new firebase.auth.FacebookAuthProvider();
+    this.tracking.trackLogin('Facebook');
     return this.oAuthLogin(provider);
   }
 
   twitterLogin() {
     const provider = new firebase.auth.TwitterAuthProvider();
+    this.tracking.trackLogin('Twitter');
     return this.oAuthLogin(provider);
   }
 
@@ -71,6 +76,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(credential => {
+        this.tracking.trackEvent('login_success');
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
         return this.updateUserData(credential.user);
       })
@@ -79,17 +85,18 @@ export class AuthService {
 
   //// Anonymous Auth ////
 
-  anonymousLogin() {
-    return this.afAuth.auth
-      .signInAnonymously()
-      .then(credential => {
-        this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
-        return this.updateUserData(credential.user); // if using firestore
-      })
-      .catch(error => {
-        this.handleError(error);
-      });
-  }
+  // anonymousLogin() {
+  //   return this.afAuth.auth
+  //     .signInAnonymously()
+  //     .then(credential => {
+  //       this.tracking.trackLogin('anonymous');
+  //       this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
+  //       return this.updateUserData(credential.user); // if using firestore
+  //     })
+  //     .catch(error => {
+  //       this.handleError(error);
+  //     });
+  // }
 
   //// Email/Password Auth ////
 
@@ -97,6 +104,7 @@ export class AuthService {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(credential => {
+        this.tracking.trackSignUp('email');
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
         return this.updateUserData(credential.user); // if using firestore
       })
@@ -107,6 +115,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(credential => {
+        this.tracking.trackLogin('email');
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
         return this.updateUserData(credential.user);
       })
@@ -120,13 +129,16 @@ export class AuthService {
     return fbAuth
       .sendPasswordResetEmail(email)
       .then(() => {
-        this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
+        this.tracking.trackEvent('password_reset_email');
+        this.toast.success({ msg: 'You have been sent an email, please use it too sign in', title: 'Sent' });
       })
       .catch(error => this.handleError(error));
   }
 
   signOut() {
     this.afAuth.auth.signOut().then(() => {
+      this.toast.success('Logged out');
+      this.tracking.trackEvent('sign_out');
       this.router.navigate(['/']);
     });
   }
@@ -134,6 +146,7 @@ export class AuthService {
   // If error, console log and notify user
   private handleError(error: Error) {
     console.error(error);
+    this.tracking.trackException(error.message);
     this.toast.error({ msg: `Error while logging in: ${error.message}`, title: 'Login error' });
   }
 
