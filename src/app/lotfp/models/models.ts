@@ -38,6 +38,7 @@ export interface LotfpCharacter extends BaseDocument {
     hitPoints?: number;
     attackBonus?: number;
     surpriseChange?: number;
+    enhancedCombatOptions?: boolean;
 
     // Wealth
     silver?: number;

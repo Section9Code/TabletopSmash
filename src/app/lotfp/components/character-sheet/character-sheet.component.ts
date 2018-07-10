@@ -39,7 +39,12 @@ export class CharacterSheetComponent implements OnInit {
     console.log('Up', event);
 
     if (this.measureStartingX) {
-      console.log(`Box -- this.drawText(context, msg, ${this.measureStartingX}, ${this.measureStartingY}, ${event.offsetX}, ${event.offsetY}, this.FONT_SIZE_PIXELS);`);
+
+      if (this.measureStartingX === event.offsetX && this.measureStartingY === event.offsetY) {
+        console.log(`Box -- this.drawPip(context, msg, ${this.measureStartingX}, ${this.measureStartingY}, 7);`);
+      } else {
+        console.log(`Box -- this.drawText(context, ${this.measureStartingX}, ${this.measureStartingY}, ${event.offsetX}, ${event.offsetY}, this.FONT_SIZE_PIXELS);`);
+      }
       this.measureStartingX = null;
       this.measureStartingY = null;
     }
@@ -120,6 +125,17 @@ export class CharacterSheetComponent implements OnInit {
     this.drawDice(context, this.character.stealthSkill, 176, 1002);
     this.drawDice(context, this.character.tinkeringSkill, 259, 1002);
 
+    // Combat options
+    this.drawPip(context, 735, 668, 7);               // Standard Attack Box (Everyone)
+    this.drawPip(context, 735, 712, 7);               // Parry (Everyone)
+
+    if (this.character.enhancedCombatOptions) {
+      this.drawPip(context, 851, 732, 7);             // Enhanced Parry
+      this.drawPip(context, 735, 758, 7);             // Press
+      this.drawPip(context, 735, 803, 7);             // Defensive
+    } else {
+      this.drawPip(context, 775, 732, 7);             // Standard parry
+    }
 
   }
 

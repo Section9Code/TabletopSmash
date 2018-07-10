@@ -18,6 +18,7 @@ export interface LotfpCharacterClass {
     characterAbilities: LotfpClassFeaturesDetails[];
     characterSkills: LotfpClassSkills[];
     surpriseChance: number;
+    enhancedCombatOptions: boolean;
 }
 
 // Class features
@@ -273,7 +274,8 @@ export const FighterCharacterClass: LotfpCharacterClass = {
         { level: 13, experience: 0, hitPointsAmount: 3, constitutionModApplies: false, savingThrows: FighterSavingThrows[5], attackBonus: 10, skillPoints: 0, level1Spells: 0, level2Spells: 0, level3Spells: 0, level4Spells: 0, level5Spells: 0, level6Spells: 0, level7Spells: 0, level8Spells: 0, level9Spells: 0 },
     ],
     characterSkills: FighterSkills,
-    surpriseChance: 2
+    surpriseChance: 2,
+    enhancedCombatOptions: true
 };
 
 // CLERIC ///////////////////////////////////////////////////////////
@@ -305,7 +307,8 @@ export const ClericCharacterClass: LotfpCharacterClass = {
         { level: 20, experience: 0, hitPointsAmount: 2, constitutionModApplies: false, savingThrows: ClericSavingThrows[5], attackBonus: 1, skillPoints: 0, level1Spells: 8, level2Spells: 7, level3Spells: 7, level4Spells: 6, level5Spells: 5, level6Spells: 5, level7Spells: 4, level8Spells: 0, level9Spells: 0 }
     ],
     characterSkills: ClericSkills,
-    surpriseChance: 1
+    surpriseChance: 1,
+    enhancedCombatOptions: false
 };
 
 // MAGIC USER ///////////////////////////////////////////////////////
@@ -337,7 +340,8 @@ export const MagicUserCharacterClass: LotfpCharacterClass = {
         { level: 20, experience: 0, hitPointsAmount: 1, constitutionModApplies: false, savingThrows: MagicUserSavingThrows[4], attackBonus: 1, skillPoints: 0, level1Spells: 8, level2Spells: 7, level3Spells: 6, level4Spells: 6, level5Spells: 5, level6Spells: 4, level7Spells: 4, level8Spells: 3, level9Spells: 2 }
     ],
     characterSkills: MagicUserSkills,
-    surpriseChance: 2
+    surpriseChance: 2,
+    enhancedCombatOptions: false
 };
 
 // SPECIALIST ///////////////////////////////////////////////////////
@@ -366,7 +370,8 @@ export const SpecialistCharacterClass: LotfpCharacterClass = {
         { level: 17, experience: 0, hitPointsAmount: 2, constitutionModApplies: false, savingThrows: SpecialistSavingThrows[4], attackBonus: 1, skillPoints: 2, level1Spells: 0, level2Spells: 0, level3Spells: 0, level4Spells: 0, level5Spells: 0, level6Spells: 0, level7Spells: 0, level8Spells: 0, level9Spells: 0 },
     ],
     characterSkills: SpecialistSkills,
-    surpriseChance: 2
+    surpriseChance: 2,
+    enhancedCombatOptions: false
 };
 
 // DWARF ////////////////////////////////////////////////////////////
@@ -390,7 +395,8 @@ export const DwarfCharacterClass: LotfpCharacterClass = {
         { level: 12, experience: 0, hitPointsAmount: 3, constitutionModApplies: false, savingThrows: DwarfSavingThrows[4], attackBonus: 0, skillPoints: 0, level1Spells: 0, level2Spells: 0, level3Spells: 0, level4Spells: 0, level5Spells: 0, level6Spells: 0, level7Spells: 0, level8Spells: 0, level9Spells: 0 }
     ],
     characterSkills: DwarfSkills,
-    surpriseChance: 2
+    surpriseChance: 2,
+    enhancedCombatOptions: true
 };
 
 // ELF //////////////////////////////////////////////////////////////
@@ -419,7 +425,8 @@ export const ElfCharacterClass: LotfpCharacterClass = {
         { level: 17, experience: 0, hitPointsAmount: 2, constitutionModApplies: false, savingThrows: ElfSavingThrows[5], attackBonus: 1, skillPoints: 0, level1Spells: 7, level2Spells: 6, level3Spells: 5, level4Spells: 5, level5Spells: 4, level6Spells: 3, level7Spells: 3, level8Spells: 2, level9Spells: 1 },
     ],
     characterSkills: ElfSkills,
-    surpriseChance: 1
+    surpriseChance: 1,
+    enhancedCombatOptions: true
 };
 
 // HALFLING /////////////////////////////////////////////////////////
@@ -441,7 +448,8 @@ export const HalflingCharacterClass: LotfpCharacterClass = {
         { level: 10, experience: 0, hitPointsAmount: 2, constitutionModApplies: false, savingThrows: HalflingSavingThrows[4], attackBonus: 0, skillPoints: 0, level1Spells: 0, level2Spells: 0, level3Spells: 0, level4Spells: 0, level5Spells: 0, level6Spells: 0, level7Spells: 0, level8Spells: 0, level9Spells: 0 },
     ],
     characterSkills: HalflingSkills,
-    surpriseChance: 2
+    surpriseChance: 2,
+    enhancedCombatOptions: false
 };
 
 // Array of all possible character classes with their bonuses ///////
