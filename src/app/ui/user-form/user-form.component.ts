@@ -14,7 +14,7 @@ type FormErrors = { [u in UserFields]: string };
 export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
-  newUser = true; // to toggle login or signup form
+  newUser = false; // to toggle login or signup form
   passReset = false; // set to true when password reset is triggered
   formErrors: FormErrors = {
     'email': '',
