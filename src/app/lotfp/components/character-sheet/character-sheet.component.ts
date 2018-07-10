@@ -29,13 +29,13 @@ export class CharacterSheetComponent implements OnInit {
   }
 
   // For measuring the page for developing parts
-  private canvasOnMouseDown(event: any) {
+  canvasOnMouseDown(event: any) {
     console.log('Down', event);
     this.measureStartingX = event.offsetX;
     this.measureStartingY = event.offsetY;
   }
 
-  private canvasOnMouseUp(event: any) {
+  canvasOnMouseUp(event: any) {
     console.log('Up', event);
 
     if (this.measureStartingX) {

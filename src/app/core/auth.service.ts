@@ -71,7 +71,6 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(credential => {
-        // this.notify.update('Welcome to Firestarter!!!', 'success');
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
         return this.updateUserData(credential.user);
       })
@@ -84,7 +83,6 @@ export class AuthService {
     return this.afAuth.auth
       .signInAnonymously()
       .then(credential => {
-        // this.notify.update('Welcome to Firestarter!!!', 'success');
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
         return this.updateUserData(credential.user); // if using firestore
       })
@@ -99,7 +97,6 @@ export class AuthService {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(credential => {
-        // this.notify.update('Welcome new user!', 'success');
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
         return this.updateUserData(credential.user); // if using firestore
       })
@@ -110,7 +107,6 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(credential => {
-        // this.notify.update('Welcome back!', 'success');
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
         return this.updateUserData(credential.user);
       })
@@ -124,7 +120,6 @@ export class AuthService {
     return fbAuth
       .sendPasswordResetEmail(email)
       .then(() => {
-        // this.notify.update('Password update email sent', 'info')
         this.toast.success({ msg: 'You have successfully logged in', title: 'Login' });
       })
       .catch(error => this.handleError(error));
@@ -139,7 +134,6 @@ export class AuthService {
   // If error, console log and notify user
   private handleError(error: Error) {
     console.error(error);
-    // this.notify.update(error.message, 'error');
     this.toast.error({ msg: `Error while logging in: ${error.message}`, title: 'Login error' });
   }
 
