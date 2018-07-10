@@ -38,10 +38,10 @@ export class UserLoginComponent {
 
   /// Anonymous Sign In
 
-  async signInAnonymously() {
-    await this.auth.anonymousLogin();
-    return await this.afterSignIn();
-  }
+  // async signInAnonymously() {
+  //   await this.auth.anonymousLogin();
+  //   return await this.afterSignIn();
+  // }
 
   /// Shared
 
