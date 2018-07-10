@@ -29,7 +29,5 @@ export class MainNavComponent implements OnInit {
 
   logout() {
     this.auth.signOut();
-    this.toast.success("Logged out");
-    this.router.navigate(['/']);
   }
 }

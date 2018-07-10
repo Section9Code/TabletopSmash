@@ -4,6 +4,7 @@ import { CharacterService } from '../../services/character.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastyService } from 'ng2-toasty';
+import { TrackingService } from '../../../core/tracking.service';
 
 @Component({
   selector: 'character-list',
@@ -14,7 +15,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   characters: LotfpCharacter[] = [];
   charactersSub: Subscription;
 
-  constructor(private characterService: CharacterService, private router: Router, private toast: ToastyService) { }
+  constructor(private characterService: CharacterService, private router: Router, private toast: ToastyService, private tracking: TrackingService) { }
 
   async ngOnInit() {
     const dataObservable = await this.characterService.getMine();
@@ -26,6 +27,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   }
 
   async createCharacter() {
+    this.tracking.trackEvent('character_create');
     const newCharacter: LotfpCharacter = {
       level: 1,
       inProgress: true
@@ -37,11 +39,13 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   }
 
   edit(id: string) {
+    this.tracking.trackEvent('character_edit');
     this.router.navigate(['/lotfp/characters', id]);
   }
 
   async delete(id: string) {
     if (confirm('Are you sure you want to delete this character?')) {
+      this.tracking.trackEvent('character_delete');
       await this.characterService.delete(id);
       this.toast.success('Character deleted');
     }
