@@ -1,8 +1,8 @@
 <form [formGroup]="userForm" *ngIf="newUser" (ngSubmit)="signup()">
 
-    <h3>User login</h3>
+    <h3>Create account</h3>
     <a [routerLink]="" (click)="toggleForm()">Already Registered?</a>
-    <hr>
+    <br/>
 
     <label for="email">Email</label>
     <input type="email" class="input" formControlName="email" name="email" required autocomplete="new-password">
@@ -19,7 +19,7 @@
     </div>
 
     <div *ngIf="userForm.valid" class="notification is-success">Form is valid</div>
-    <button type="submit" class="button" [disabled]="!userForm.valid">Submit</button>
+    <button type="submit" class="button" [disabled]="!userForm.valid">Create account</button>
 
 </form>
 
@@ -27,8 +27,8 @@
 <form [formGroup]="userForm" *ngIf="!newUser" (ngSubmit)="login()">
 
     <h3>Existing User Login</h3>
-    <a [routerLink]="" (click)="toggleForm()">New User?</a>
-    <hr>
+    <a [routerLink]="" (click)="toggleForm()">New User? - Create an account</a>
+    <br/>
 
     <label for="email">Email</label>
     <input type="email" id="email" name="email2" class="input" formControlName="email" required autocomplete="new-password">
@@ -44,7 +44,7 @@
         {{ formErrors.password }}
     </div>
 
-    <button type="submit" class="button" [disabled]="!userForm.valid">Submit</button>
+    <button type="submit" class="button" [disabled]="!userForm.valid">Login</button>
 
     <span *ngIf="userForm.valid" class="help is-success">Form Looks Valid</span>
 
