@@ -11,7 +11,8 @@
         "build:all": "ng build --prod && ng run firestarter:server && npm run webpack:prerender && npm run prerender",
         "serve:prerender": "http-server dist/firestarter -c-1",
         "webpack:prerender": "webpack --config webpack.prerender.config.js",
-        "prerender": "node dist/firestarter/prerender.js"
+        "prerender": "node dist/firestarter/prerender.js",
+        "deploy" : "ng build --prod && firebase deploy"
     },
     "private": true,
     "dependencies": {
