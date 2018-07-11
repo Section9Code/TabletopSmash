@@ -21,7 +21,7 @@ export class CharacterSheetComponent implements OnInit {
   FONT_SMALL_SIZE_PIXELS = 20;
   FONT_FAMILY = 'Arial';
   FONT_COLOR = 'black';
-  SHOW_BOUNDS = true;
+  SHOW_BOUNDS = false;
 
   constructor() { }
 
@@ -151,6 +151,12 @@ export class CharacterSheetComponent implements OnInit {
     // Silver
     if (this.character.silver) {
       this.drawText(context, `${this.character.silver.toFixed(2)} sp`, 65, 82, 200, 110, this.FONT_SMALL_SIZE_PIXELS);
+    }
+
+    // Gems
+    if (this.character.equipment) {
+      const gems = this.character.equipment.filter(i => i.name === 'Gem');
+      this.drawText(context, gems.length, 257, 82, 329, 110, this.FONT_SMALL_SIZE_PIXELS);
     }
 
     // Emcumberance
