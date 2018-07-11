@@ -28,6 +28,7 @@ import { PublicCharactersPageComponent } from './pages/public-characters-page/pu
 import { PublicCharacterListComponent } from './components/public-character-list/public-character-list.component';
 import { PublicCharacterSheetPageComponent } from './pages/public-character-sheet-page/public-character-sheet-page.component';
 import { CreateCharacterDetailsPageComponent } from './pages/create/create-character-details-page/create-character-details-page.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 // Routes for the module
 const lotfpRoutes: Routes = [
@@ -82,7 +83,8 @@ const lotfpRoutes: Routes = [
     PublicCharactersPageComponent,
     PublicCharacterListComponent,
     PublicCharacterSheetPageComponent,
-    CreateCharacterDetailsPageComponent
+    CreateCharacterDetailsPageComponent,
+    TruncatePipe
   ],
   exports: [
     PartiesListComponent

@@ -14,7 +14,7 @@
               <span *ngIf="character.inProgress" class="tag is-info">In Progress</span>
               <span *ngIf="character.isPublic" class="tag is-success">Public</span>
             </div>
-            {{ character.background }}
+            {{ character.background | truncate : 150 }}
             <br>
             <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
           </div>
