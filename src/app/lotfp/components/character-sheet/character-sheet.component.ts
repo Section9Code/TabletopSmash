@@ -21,7 +21,7 @@ export class CharacterSheetComponent implements OnInit {
   FONT_SMALL_SIZE_PIXELS = 20;
   FONT_FAMILY = 'Arial';
   FONT_COLOR = 'black';
-  SHOW_BOUNDS = true;
+  SHOW_BOUNDS = false;
 
   constructor() { }
 
