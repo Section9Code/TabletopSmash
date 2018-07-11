@@ -31,6 +31,7 @@ export const armourList: LotfpArmour[] = [
 
 // Shield list
 export const shieldList: LotfpArmour[] = [
+    { name: 'Wooden shield', cost: 10, baseAc: 12, encumberancePoints: 0, encumbering: true, oversized: false },
     { name: 'Leather shield', cost: 250, baseAc: 14, encumberancePoints: 0, encumbering: true, oversized: false },
     { name: 'Chain shield', cost: 500, baseAc: 16, encumberancePoints: 0, encumbering: true, oversized: false },
     { name: 'Plate shield', cost: 1000, baseAc: 18, encumberancePoints: 0, encumbering: true, oversized: false }
