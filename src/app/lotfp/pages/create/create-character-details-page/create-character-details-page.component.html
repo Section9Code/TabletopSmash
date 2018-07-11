@@ -1,0 +1,46 @@
+<character-creator-progress [step]="'details'" [character]="character"></character-creator-progress>
+
+<section class="section">
+  <div class="field">
+    <label class="label">Allignment</label>
+    <div class="control">
+      <!-- <input class="input" [(ngModel)]="character.level" type="text" placeholder="Your characters starting level"> -->
+      <div class="select is-fullwidth">
+        <select [(ngModel)]="character.alignment">
+          <option value="Lawful">Lawful</option>
+          <option value="Neutral">Neutral</option>
+          <option value="Chaotic">Chaotic</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Age</label>
+    <div class="control">
+      <input type="number" class="input" [(ngModel)]="character.age" placeholder="Your characters age">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Sex</label>
+    <div class="control">
+      <!-- <input class="input" [(ngModel)]="character.level" type="text" placeholder="Your characters starting level"> -->
+      <div class="select is-fullwidth">
+        <select [(ngModel)]="character.sex">
+          <option value="F">Female</option>
+          <option value="M">Male</option>
+          <option value="X">Not specified</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="section">
+  <button [disabled]="!character.allignment || !character.sex || !character.age" class="button is-primary" (click)="next()">Next</button>
+</section>
+
+
+

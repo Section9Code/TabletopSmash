@@ -18,6 +18,9 @@
     <li [ngClass]="{'is-active': step == 'magic'}">
       <a routerLink="/lotfp/characters/{{character.id}}/magic">Magic</a>
     </li>
+    <li [ngClass]="{'is-active': step == 'details'}">
+      <a routerLink="/lotfp/characters/{{character.id}}/details">Details</a>
+    </li>
     <li [ngClass]="{'is-active': step == 'summary'}">
         <a routerLink="/lotfp/characters/{{character.id}}/summary">Character sheet</a>
       </li>

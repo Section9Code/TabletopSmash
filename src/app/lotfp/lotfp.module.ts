@@ -27,6 +27,7 @@ import { CharacterSheetComponent } from './components/character-sheet/character-
 import { PublicCharactersPageComponent } from './pages/public-characters-page/public-characters-page.component';
 import { PublicCharacterListComponent } from './components/public-character-list/public-character-list.component';
 import { PublicCharacterSheetPageComponent } from './pages/public-character-sheet-page/public-character-sheet-page.component';
+import { CreateCharacterDetailsPageComponent } from './pages/create/create-character-details-page/create-character-details-page.component';
 
 // Routes for the module
 const lotfpRoutes: Routes = [
@@ -43,6 +44,7 @@ const lotfpRoutes: Routes = [
       { path: 'characters/:id/skills', component: CreateCharacterSkillsPageComponent, canActivate: [AuthGuard] },
       { path: 'characters/:id/equipment', component: CreateCharacterEquipmentPageComponent, canActivate: [AuthGuard] },
       { path: 'characters/:id/magic', component: CreateCharacterMagicPageComponent, canActivate: [AuthGuard] },
+      { path: 'characters/:id/details', component: CreateCharacterDetailsPageComponent, canActivate: [AuthGuard] },
       { path: 'characters/:id/summary', component: CreateCharacterSummaryPageComponent, canActivate: [AuthGuard] }
     ]
   }
@@ -79,7 +81,8 @@ const lotfpRoutes: Routes = [
     CharacterSheetComponent,
     PublicCharactersPageComponent,
     PublicCharacterListComponent,
-    PublicCharacterSheetPageComponent
+    PublicCharacterSheetPageComponent,
+    CreateCharacterDetailsPageComponent
   ],
   exports: [
     PartiesListComponent

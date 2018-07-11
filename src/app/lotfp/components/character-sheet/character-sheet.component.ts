@@ -41,9 +41,9 @@ export class CharacterSheetComponent implements OnInit {
     if (this.measureStartingX) {
 
       if (this.measureStartingX === event.offsetX && this.measureStartingY === event.offsetY) {
-        console.log(`Box -- this.drawPip(context, msg, ${this.measureStartingX}, ${this.measureStartingY}, 7);`);
+        console.log(`Box -- this.drawPip(context, ${this.measureStartingX}, ${this.measureStartingY}, 7);`);
       } else {
-        console.log(`Box -- this.drawText(context, ${this.measureStartingX}, ${this.measureStartingY}, ${event.offsetX}, ${event.offsetY}, this.FONT_SIZE_PIXELS);`);
+        console.log(`Box -- this.drawText(context, msg, ${this.measureStartingX}, ${this.measureStartingY}, ${event.offsetX}, ${event.offsetY}, this.FONT_SIZE_PIXELS);`);
       }
       this.measureStartingX = null;
       this.measureStartingY = null;
@@ -69,42 +69,45 @@ export class CharacterSheetComponent implements OnInit {
     // Details
     this.drawText(context, this.character.name, 491, 48, 703, 77, this.FONT_SIZE_PIXELS);
     this.drawText(context, this.character.characterClass, 442, 100, 603, 120, this.FONT_SMALL_SIZE_PIXELS);
-    this.drawText(context, this.character.level.toString(), 617, 101, 773, 120, this.FONT_SMALL_SIZE_PIXELS);
+    this.drawText(context, this.character.level, 617, 100, 773, 120, this.FONT_SMALL_SIZE_PIXELS);
+    this.drawText(context, this.character.alignment, 782, 100, 926, 120, this.FONT_SMALL_SIZE_PIXELS);
+    this.drawText(context, this.character.age, 441, 153, 543, 175, this.FONT_SMALL_SIZE_PIXELS);
+    this.drawText(context, this.character.sex, 566, 153, 614, 175, this.FONT_SMALL_SIZE_PIXELS);
 
     // Ability scores
-    this.drawText(context, this.character.charisma.value.toString(), 117, 258, 167, 309, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.charisma.modifier.toString(), 178, 258, 226, 309, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.constitution.value.toString(), 117, 342, 166, 392, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.constitution.modifier.toString(), 178, 342, 226, 392, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.dexterity.value.toString(), 117, 421, 166, 470, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.dexterity.modifier.toString(), 178, 421, 226, 470, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.intelligence.value.toString(), 117, 502, 166, 551, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.intelligence.modifier.toString(), 178, 502, 226, 551, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.strength.value.toString(), 117, 582, 166, 630, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.strength.modifier.toString(), 178, 582, 226, 630, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.wisdom.value.toString(), 117, 663, 166, 716, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.wisdom.modifier.toString(), 178, 663, 226, 716, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.charisma.value, 117, 258, 167, 309, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.charisma.modifier, 178, 258, 226, 309, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.constitution.value, 117, 342, 166, 392, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.constitution.modifier, 178, 342, 226, 392, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.dexterity.value, 117, 421, 166, 470, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.dexterity.modifier, 178, 421, 226, 470, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.intelligence.value, 117, 502, 166, 551, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.intelligence.modifier, 178, 502, 226, 551, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.strength.value, 117, 582, 166, 630, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.strength.modifier, 178, 582, 226, 630, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.wisdom.value, 117, 663, 166, 716, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.wisdom.modifier, 178, 663, 226, 716, this.FONT_SIZE_PIXELS);
 
     // Saving throws
-    this.drawText(context, this.character.paralyseSavingThrow.toString(), 444, 268, 513, 338, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.poisonSavingThrow.toString(), 543, 268, 615, 338, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.breathSavingThrow.toString(), 649, 268, 720, 338, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.magicSavingThrow.toString(), 752, 268, 825, 338, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.deviceSavingThrow.toString(), 856, 268, 929, 338, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.paralyseSavingThrow, 444, 268, 513, 338, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.poisonSavingThrow, 543, 268, 615, 338, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.breathSavingThrow, 649, 268, 720, 338, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.magicSavingThrow, 752, 268, 825, 338, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.deviceSavingThrow, 856, 268, 929, 338, this.FONT_SIZE_PIXELS);
 
     // Attack bonus
-    this.drawText(context, this.character.attackBonus.toString(), 445, 487, 515, 558, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.attackBonus, 445, 487, 515, 558, this.FONT_SIZE_PIXELS);
     this.drawText(context, `${this.character.attackBonus + this.character.strength.modifier}`, 535, 487, 604, 558, this.FONT_SIZE_PIXELS);
     this.drawText(context, `${this.character.attackBonus + this.character.dexterity.modifier}`, 626, 487, 694, 558, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.hitPoints.toString(), 844, 461, 897, 508, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.hitPoints.toString(), 844, 520, 897, 574, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.hitPoints, 844, 461, 897, 508, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.hitPoints, 844, 520, 897, 574, this.FONT_SIZE_PIXELS);
     this.drawDice(context, this.character.surpriseChange, 743, 498);
 
     // Armour class
-    this.drawText(context, this.character.acMelee.toString(), 488, 659, 542, 711, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.acRanged.toString(), 588, 657, 639, 709, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.acWithoutShield.toString(), 489, 746, 539, 785, this.FONT_SIZE_PIXELS);
-    this.drawText(context, this.character.acSurprised.toString(), 588, 744, 638, 785, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.acMelee, 488, 659, 542, 711, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.acRanged, 588, 657, 639, 709, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.acWithoutShield, 489, 746, 539, 785, this.FONT_SIZE_PIXELS);
+    this.drawText(context, this.character.acSurprised, 588, 744, 638, 785, this.FONT_SIZE_PIXELS);
 
     // Weapon list
     this.drawList(context, this.weaponTextNames(this.character.weapons, this.character.rangedWeapons), 435, 953, 643, 1117, this.FONT_SMALL_SIZE_PIXELS, this.FONT_SMALL_SIZE_PIXELS + 7, 6);
@@ -338,7 +341,9 @@ export class CharacterSheetComponent implements OnInit {
   }
 
   // Draw text on the page in a certain area
-  private drawText(ctx: CanvasRenderingContext2D, text: string, topLeftX: number, topLeftY: number, bottomRightX: number, bottomRightY: number, fontSize: number, center: boolean = true) {
+  private drawText(ctx: CanvasRenderingContext2D, text: any, topLeftX: number, topLeftY: number, bottomRightX: number, bottomRightY: number, fontSize: number, center: boolean = true) {
+    if (!text) { return; }
+
     ctx.font = `${fontSize}px ${this.FONT_FAMILY}`;
     const width = bottomRightX - topLeftX;
     const height = bottomRightY - topLeftY;

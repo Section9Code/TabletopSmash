@@ -17,6 +17,10 @@ export interface LotfpCharacter extends BaseDocument {
     background?: string;
     isPublic?: boolean;
 
+    alignment?: string;
+    age?: number;
+    sex?: string;
+
     // Ability scores
     charisma?: AbilityScore;
     constitution?: AbilityScore;

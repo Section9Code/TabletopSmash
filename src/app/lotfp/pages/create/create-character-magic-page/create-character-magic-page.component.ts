@@ -125,11 +125,6 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
 
   next() {
     // Go to the next page
-    if (this.character.inProgress) {
-      // Finish the character
-      this.characterService.updateValues(this.character.id, { inProgress: false });
-      this.toast.success({ msg: 'Your character has been fully created, you can come back at any time and make updates', title: 'Character complete' });
-    }
-    this.router.navigate(['../summary'], { relativeTo: this.route });
+    this.router.navigate(['../details'], { relativeTo: this.route });
   }
 }
