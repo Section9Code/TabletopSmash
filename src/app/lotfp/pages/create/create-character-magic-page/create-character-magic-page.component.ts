@@ -55,6 +55,16 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
               console.log('Set magic user spells', this.spellsForUser.getValue());
               break;
           }
+
+          // Sort characters spells
+          this.character.spells = this.character.spells.sort((a,b) => {
+            if(a.level !== b.level) {
+              // Level sort
+              return (a.level < b.level) ? -1 : 1;
+            } else {
+              return (a.name < b.name) ? -1 : 1;
+            }
+          });
         }
       });
     });
@@ -68,7 +78,7 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
   onSpellSelected(spell: LotfpSpell) {
     // Check the user has space for this spell
     if (!this.hasSpaceForSpell(spell)) {
-      this.toast.warning(`Cannot add this spell`);
+      this.toast.warning(`No more space for level ${spell.level} spells`);
       return;
     } else {
       // Add spell to character
@@ -76,6 +86,14 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
 
       // Make sure the list isn't empty
       if (!exitingSpells) { exitingSpells = []; }
+
+      // Make sure the user doesn't already have the spell
+      const index = this.character.spells.findIndex(s => s.name === spell.name && s.level === spell.level);
+      if (index !== -1) {
+        // User already has spell
+        this.toast.error({ msg: `The spell <b>${spell.name}</b> (Lvl ${spell.level}) is already in your spell book`, title: 'Duplicate spell' });
+        return;
+      }
 
       // Add the spell to the list
       exitingSpells.push(spell);
