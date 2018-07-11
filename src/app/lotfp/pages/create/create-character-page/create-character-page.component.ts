@@ -11,7 +11,7 @@ import { LotfpCharacter } from 'src/app/lotfp/models/models';
   styleUrls: ['./create-character-page.component.scss']
 })
 export class CreateCharacterPageComponent implements OnInit, OnDestroy {
-  character: LotfpCharacter = { system: 'lotfp', name: '', background: '', level: 1, inProgress: true, isPublic: false};
+  character: LotfpCharacter = { system: 'lotfp', name: '', background: '', level: 1, inProgress: true, isPublic: false };
 
   routerSub: Subscription;
   characterSub: Subscription;
@@ -47,6 +47,7 @@ export class CreateCharacterPageComponent implements OnInit, OnDestroy {
     console.log(`Update character (${this.character.id})`, this.character);
 
     // Update the character
+    if (!this.character.isPublic) { this.character.isPublic = false; }
     this.characterService.updateValues(this.character.id, { name: this.character.name, background: this.character.background, level: Number(this.character.level), inProgress: this.character.inProgress, isPublic: this.character.isPublic });
 
     // Next page
