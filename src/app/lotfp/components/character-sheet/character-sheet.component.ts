@@ -21,7 +21,7 @@ export class CharacterSheetComponent implements OnInit {
   FONT_SMALL_SIZE_PIXELS = 20;
   FONT_FAMILY = 'Arial';
   FONT_COLOR = 'black';
-  SHOW_BOUNDS = false;
+  SHOW_BOUNDS = true;
 
   constructor() { }
 
@@ -149,7 +149,9 @@ export class CharacterSheetComponent implements OnInit {
     context.font = `${this.FONT_SIZE_PIXELS}px ${this.FONT_FAMILY}`;
 
     // Silver
-    this.drawText(context, `${this.character.silver} sp`, 68, 83, 172, 113, this.FONT_SIZE_PIXELS);
+    if (this.character.silver) {
+      this.drawText(context, `${this.character.silver.toFixed(2)} sp`, 65, 82, 200, 110, this.FONT_SMALL_SIZE_PIXELS);
+    }
 
     // Emcumberance
     this.renderEncumberancePips(context);
