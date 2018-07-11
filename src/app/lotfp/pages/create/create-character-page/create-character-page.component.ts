@@ -5,6 +5,8 @@ import { filter } from 'rxjs/operators';
 import { CharacterService } from 'src/app/lotfp/services/character.service';
 import { LotfpCharacter } from 'src/app/lotfp/models/models';
 import { CharacterClasses, LotfpCharacterClass } from '../../../models/CharacterClasses';
+import { BadWordChecker } from '../../../models/badwords';
+import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'create-character-page',
@@ -16,8 +18,9 @@ export class CreateCharacterPageComponent implements OnInit, OnDestroy {
   characterStartingLevel: number;
   routerSub: Subscription;
   characterSub: Subscription;
+  showProfanityWarning = false;
 
-  constructor(private characterService: CharacterService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private characterService: CharacterService, private router: Router, private route: ActivatedRoute, private toast: ToastyService) { }
 
   ngOnInit() {
     // Get the character being created/edited
@@ -50,7 +53,21 @@ export class CreateCharacterPageComponent implements OnInit, OnDestroy {
   async next() {
     console.log(`Update character (${this.character.id})`, this.character);
 
-    // Update the character
+    // Check for bad words
+    if (this.character.isPublic) {
+      // The user wants to make this character public, check for bad words
+      const nameBad = !BadWordChecker.isClean(this.character.name);
+      const backgroundBad = !BadWordChecker.isClean(this.character.background);
+      if (nameBad || backgroundBad) {
+        // The name or the descriptions contain banned words
+        this.toast.error({ msg: 'This character cannot be made public, banned words have been detected in the name or backgroud. You can keep the character for yourself but you cannot make it public.', title: 'Banned words detected' });
+        this.character.isPublic = false;
+        this.showProfanityWarning = true;
+        return;
+      }
+    }
+
+    // All checks passed, update the record
     if (!this.character.isPublic) { this.character.isPublic = false; }
     await this.characterService.updateValues(this.character.id, { name: this.character.name, background: this.character.background, level: Number(this.character.level), inProgress: this.character.inProgress, isPublic: this.character.isPublic });
 
@@ -59,9 +76,10 @@ export class CreateCharacterPageComponent implements OnInit, OnDestroy {
       await this.characterService.recalculateClassTraits(this.character.id);
     }
 
-
     // Next page
     this.router.navigate(['abilities'], { relativeTo: this.route });
   }
+
+
 
 }

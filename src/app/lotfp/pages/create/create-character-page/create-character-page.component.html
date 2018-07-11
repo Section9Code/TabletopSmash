@@ -44,10 +44,17 @@
   <div class="field">
     <label class="label">Is Public</label>
     <label class="checkbox">
-        <input type="checkbox" [(ngModel)]="character.isPublic">
-        Let others find this character and use it in their own games (They cannot edit your character, and you can stop it being public at any time).
-      </label>
+      <input type="checkbox" [(ngModel)]="character.isPublic"> Let others find this character and use it in their own games (They cannot edit your character, and you can stop it
+      being public at any time).
+    </label>
   </div>
+
+  <div *ngIf="showProfanityWarning" class="notification is-warning">
+    <strong>Profanity warning</strong>
+    <br/> Bad words were detected in your name or background. It is fine to have them on your own characters but you cannot make
+    a character public with banned words. Please carry on and create the character, but respect others if you decide to publish it.
+  </div>
+
 
 </section>
 
