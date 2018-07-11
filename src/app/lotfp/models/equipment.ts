@@ -198,6 +198,7 @@ export const miscList: LotfpEquipment[] = [
     { name: 'Tabacco', cost: 1, encumbering: true, oversized: false },
     { name: 'Torch', cost: 0.01, encumbering: true, oversized: false },
     { name: 'Vial or bottle, empty', cost: 0.1, encumbering: false, oversized: false },
+    { name: 'Wand', cost: 100, encumbering: true, oversized: false },
     { name: 'Waterskin', cost: 1, encumbering: true, oversized: false },
     { name: 'Whistle', cost: 1, encumbering: false, oversized: false },
     { name: 'Wolvesbane', cost: 1, encumbering: false, oversized: false }
