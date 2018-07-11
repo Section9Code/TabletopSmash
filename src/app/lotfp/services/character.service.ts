@@ -6,6 +6,9 @@ import { LotfpCharacter } from '../models/models';
 import { Subscription } from 'rxjs';
 import { LotfpEquipment } from '../models/equipment';
 import { Observable } from '@firebase/util';
+import { SUBSTITUTION_EXPR_END } from '@angular/animations/browser/src/util';
+import { LotfpCharacterClass, CharacterClasses } from '../models/CharacterClasses';
+import { ToastyService } from 'ng2-toasty';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +18,7 @@ export class CharacterService extends DBService<LotfpCharacter> {
     subReCalcAc: Subscription;
     subReCalcEncumberance: Subscription;
 
-    constructor(private _db: AngularFirestore, private _auth: AuthService) {
+    constructor(private _db: AngularFirestore, private _auth: AuthService, private toast: ToastyService) {
         super(_db, _auth);
         this.init();
     }
@@ -132,5 +135,86 @@ export class CharacterService extends DBService<LotfpCharacter> {
             // Stop listening for changes
             this.subReCalcEncumberance.unsubscribe();
         });
+    }
+
+    // Called when the characters class traits need to be recalculates (i.e. when the characters level changes)
+    recalculateClassTraits(id: string): Promise<LotfpCharacter> {
+        return new Promise((resolve, reject) => {
+            // Get the character to be updated
+            const subUpdate: Subscription = this.getSingle(id).subscribe(characters => {
+                // Get the character
+                const character = characters[0];
+
+                // The user has changed the characters level, reset some of the stats
+                const charClass: LotfpCharacterClass = CharacterClasses.find(i => i.name === character.characterClass);
+                const classAbilities = charClass.characterAbilities.find(a => a.level === character.level);
+
+                // Update the character
+                this.updateValues(character.id, {
+                    // Saving throws
+                    paralyseSavingThrow: classAbilities.savingThrows.paralyze,
+                    poisonSavingThrow: classAbilities.savingThrows.poison,
+                    breathSavingThrow: classAbilities.savingThrows.breath,
+                    deviceSavingThrow: classAbilities.savingThrows.device,
+                    magicSavingThrow: classAbilities.savingThrows.magic,
+
+                    // Spells
+                    level1Spells: classAbilities.level1Spells,
+                    level2Spells: classAbilities.level2Spells,
+                    level3Spells: classAbilities.level3Spells,
+                    level4Spells: classAbilities.level4Spells,
+                    level5Spells: classAbilities.level5Spells,
+                    level6Spells: classAbilities.level6Spells,
+                    level7Spells: classAbilities.level7Spells,
+                    level8Spells: classAbilities.level8Spells,
+                    level9Spells: classAbilities.level9Spells
+                });
+
+                // Validate after the update
+                this.validateCharacter(character);
+
+                // Done - resolve promise
+                resolve(character);
+                subUpdate.unsubscribe();
+            });
+        });
+    }
+
+    // Validates a character is correct
+    validateCharacter(character: LotfpCharacter): boolean {
+        console.group('Validation. Character Level', character.level);
+        let isValid = true;
+
+        // Get character class setup
+        const charClass: LotfpCharacterClass = CharacterClasses.find(i => i.name === character.characterClass);
+        const classAbilities = charClass.characterAbilities.find(a => a.level === character.level);
+
+
+        // Validate the characters spells against their level
+        console.log('Validate spells');
+        for (let i = 1; i <= 9; i++) {
+            console.group(`Checking level ${i}`);
+
+            // Check the number of spells the user has against what the class says they should have
+            const charSpells = character.spells.filter(s => s.level === i).length;
+            const allowedSpellCount = classAbilities[`level${i}Spells`];
+            console.log(`Char spell count: ${charSpells} --- Allowed spell count ${allowedSpellCount}`);
+            if (charSpells > allowedSpellCount) {
+                console.log('Validation fail - To many spells');
+                isValid = false;
+                this.toast.warning({ msg: `Your character has too many level ${i} spells, please remove ${charSpells - allowedSpellCount}`, title: `Level ${i} Spells` });
+            }
+
+            if(charSpells < allowedSpellCount) {
+                // The user can have more spells at this level
+                this.toast.info({ msg: `You currently have ${charSpells} spells at level ${i}, you are now allowed ${allowedSpellCount}`, title: `Level ${i} Spells` });
+            }
+
+            console.groupEnd();
+        }
+
+        console.log('Validation complete. Is Valid:', isValid)
+        console.groupEnd();
+        return isValid;
     }
 }

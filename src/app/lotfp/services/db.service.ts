@@ -101,11 +101,11 @@ export abstract class DBService<T extends BaseDocument> {
     return this.collectionToObservable(coll);
   }
 
-  update(item: T) {
+  async update(item: T) {
     this.collection.doc(item.id).set(item);
   }
 
-  updateValues(itemId: string, values: T) {
+  async updateValues(itemId: string, values: T) {
     console.log('Update values', itemId);
     this.collection.doc(itemId).update(values);
   }

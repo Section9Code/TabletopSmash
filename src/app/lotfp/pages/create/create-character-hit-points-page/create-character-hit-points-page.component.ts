@@ -58,26 +58,11 @@ export class CreateCharacterHitPointsPageComponent implements OnInit, OnDestroy 
       hitPoints: null,
       attackBonus: classAbilities.attackBonus,
       surpriseChange: charClass.surpriseChance,
-      enhancedCombatOptions: charClass.enhancedCombatOptions,
-
-      // Saving throws
-      paralyseSavingThrow: classAbilities.savingThrows.paralyze,
-      poisonSavingThrow: classAbilities.savingThrows.poison,
-      breathSavingThrow: classAbilities.savingThrows.breath,
-      deviceSavingThrow: classAbilities.savingThrows.device,
-      magicSavingThrow: classAbilities.savingThrows.magic,
-
-      // Spells
-      level1Spells: classAbilities.level1Spells,
-      level2Spells: classAbilities.level2Spells,
-      level3Spells: classAbilities.level3Spells,
-      level4Spells: classAbilities.level4Spells,
-      level5Spells: classAbilities.level5Spells,
-      level6Spells: classAbilities.level6Spells,
-      level7Spells: classAbilities.level7Spells,
-      level8Spells: classAbilities.level8Spells,
-      level9Spells: classAbilities.level9Spells
+      enhancedCombatOptions: charClass.enhancedCombatOptions
     });
+
+    // Update the characters class traits
+    await this.characterService.recalculateClassTraits(this.character.id);
   }
 
   rollScores() {
