@@ -349,16 +349,24 @@ export class CharacterSheetComponent implements OnInit {
   }
 
   // Draw text on the page in a certain area
-  private drawText(ctx: CanvasRenderingContext2D, text: any, topLeftX: number, topLeftY: number, bottomRightX: number, bottomRightY: number, fontSize: number, center: boolean = true) {
+  private drawText(ctx: CanvasRenderingContext2D, text: any, topLeftX: number, topLeftY: number, bottomRightX: number, bottomRightY: number, fontSize: number, center: boolean = true, dynamicResize = true) {
     if (!text) { return; }
 
-    ctx.font = `${fontSize}px ${this.FONT_FAMILY}`;
     const width = bottomRightX - topLeftX;
     const height = bottomRightY - topLeftY;
     const centerX = bottomRightX - (width / 2);
     const centerY = bottomRightY - (height / 2);
 
-    const textSize = ctx.measureText(text);
+    ctx.font = `${fontSize}px ${this.FONT_FAMILY}`;
+    let textSize = ctx.measureText(text);
+
+    // Dynamically shrink the text until it fits in the box
+    while (textSize.width > width && dynamicResize) {
+      // Reduce the size of the font till it fits in the box
+      fontSize--;
+      ctx.font = `${fontSize}px ${this.FONT_FAMILY}`;
+      textSize = ctx.measureText(text);
+    }
 
     if (this.SHOW_BOUNDS) {
       ctx.strokeStyle = '#39FF14';
@@ -367,9 +375,9 @@ export class CharacterSheetComponent implements OnInit {
     }
 
     if (center) {
-      ctx.fillText(text, centerX - (textSize.width / 2), centerY + (this.FONT_SIZE_PIXELS / 2.3));
+      ctx.fillText(text, centerX - (textSize.width / 2), centerY + (this.FONT_SIZE_PIXELS / 2.3), width);
     } else {
-      ctx.fillText(text, topLeftX, bottomRightY);
+      ctx.fillText(text, topLeftX, bottomRightY, width);
     }
   }
 
