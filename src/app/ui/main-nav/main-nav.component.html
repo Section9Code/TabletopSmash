@@ -10,7 +10,7 @@
     </div>
 
     <!-- Menu for users who are NOT logged in -->
-    <div class="navbar-menu">
+    <div class="navbar-menu" [ngClass]="{'is-active': show}">
         <!-- LotFP ================================================== -->
         <div class="navbar-item has-dropdown is-hoverable is-right">
             <a class="navbar-link">
