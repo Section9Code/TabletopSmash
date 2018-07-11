@@ -27,7 +27,7 @@
           <td>{{ item.name }} </td>
           <td>{{ item.cost }} sp</td>
           <td>{{ item.baseAc }} </td>
-          <td>
+          <td class="has-text-right">
             <button class="button is-outlined is-info" (click)="addArmour(item)" [disabled]="item.cost > character.silver || this.character.armour">Buy</button>
           </td>
         </tr>
@@ -51,7 +51,7 @@
           <td>{{ item.name }} </td>
           <td>{{ item.cost }} sp</td>
           <td>{{ item.baseAc }} </td>
-          <td>
+          <td class="has-text-right">
             <button class="button is-outlined is-info" (click)="addShield(item)" [disabled]="item.cost > character.silver || this.character.shield">Buy</button>
           </td>
         </tr>
@@ -77,11 +77,11 @@
             <td>{{ item.name }} </td>
             <td>{{ item.cost }} sp</td>
             <td>{{ item.attackDiceCount }}d{{ item.attackDiceSize }} </td>
-            <td>
+            <td class="has-text-right">
                 <span *ngIf="!item.encumbering" class="icon is-small"><i class="fa fa-feather" aria-hidden="true"></i></span>
                 <span *ngIf="item.oversized" class="icon is-small is-warning"><i class="fa fa-weight-hanging" aria-hidden="true"></i></span>
             </td>
-            <td>
+            <td class="has-text-right">
               <button class="button is-outlined is-info" (click)="addWeapon(item)" [disabled]="item.cost > character.silver">Buy</button>
             </td>
           </tr>
@@ -109,11 +109,11 @@
             <td>{{ item.shortRange }}'</td>
             <td>{{ item.mediumRange }}'</td>
             <td>{{ item.longRange }}'</td>
-            <td>
+            <td class="has-text-right">
                 <span *ngIf="!item.encumbering" class="icon is-small"><i class="fa fa-feather" aria-hidden="true"></i></span>
                 <span *ngIf="item.oversized" class="icon is-small is-warning"><i class="fa fa-weight-hanging" aria-hidden="true"></i></span>
             </td>
-            <td>
+            <td class="has-text-right">
               <button class="button is-outlined is-info" (click)="addRangedWeapon(item)" [disabled]="item.cost > character.silver">Buy</button>
             </td>
           </tr>
@@ -126,13 +126,18 @@
             <td><b>Item</b></td>
             <td><b>Price</b></td>
             <td></td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of projectileList">
             <td>{{ item.name }} </td>
             <td>{{ item.cost }} sp</td>
-            <td>
+            <td class="has-text-right">
+              <span *ngIf="!item.encumbering" class="icon is-small"><i class="fa fa-feather" aria-hidden="true"></i></span>
+              <span *ngIf="item.oversized" class="icon is-small is-warning"><i class="fa fa-weight-hanging" aria-hidden="true"></i></span>
+            </td>
+            <td class="has-text-right">
               <button class="button is-outlined is-info" (click)="addEquipment(item)" [disabled]="item.cost > character.silver">Buy</button>
             </td>
           </tr>
@@ -154,7 +159,7 @@
           <tr *ngFor="let item of animalsList">
             <td>{{ item.name }} </td>
             <td>{{ item.cost }} sp</td>
-            <td>
+            <td class="has-text-right">
               <button class="button is-outlined is-info" (click)="addEquipment(item)" [disabled]="item.cost > character.silver">Buy</button>
             </td>
           </tr>
@@ -177,11 +182,11 @@
           <tr *ngFor="let item of containersList">
             <td>{{ item.name }} </td>
             <td>{{ item.cost }} sp</td>
-            <td>
+            <td class="has-text-right">
                 <span *ngIf="!item.encumbering" class="icon is-small"><i class="fa fa-feather" aria-hidden="true"></i></span>
                 <span *ngIf="item.oversized" class="icon is-small is-warning"><i class="fa fa-weight-hanging" aria-hidden="true"></i></span>
             </td>
-            <td>
+            <td class="has-text-right">
               <button class="button is-outlined is-info" (click)="addEquipment(item)" [disabled]="item.cost > character.silver">Buy</button>
             </td>
           </tr>
@@ -203,7 +208,7 @@
             <tr *ngFor="let item of vehiclesList">
               <td>{{ item.name }} </td>
               <td>{{ item.cost }} sp</td>
-              <td>
+              <td class="has-text-right">
                 <button class="button is-outlined is-info" (click)="addEquipment(item)" [disabled]="item.cost > character.silver">Buy</button>
               </td>
             </tr>
@@ -226,11 +231,11 @@
           <tr *ngFor="let item of foodList">
             <td>{{ item.name }} </td>
             <td>{{ item.cost }} sp</td>
-            <td>
+            <td class="has-text-right">
                 <span *ngIf="!item.encumbering" class="icon is-small"><i class="fa fa-feather" aria-hidden="true"></i></span>
                 <span *ngIf="item.oversized" class="icon is-small is-warning"><i class="fa fa-weight-hanging" aria-hidden="true"></i></span>
             </td>
-            <td>
+            <td class="has-text-right">
               <button class="button is-outlined is-info" (click)="addEquipment(item)" [disabled]="item.cost > character.silver">Buy</button>
             </td>
           </tr>
@@ -255,11 +260,11 @@
             <td>
               {{ item.cost }} sp 
             </td>
-            <td>
+            <td class="has-text-right">
                 <span *ngIf="!item.encumbering" class="icon is-small"><i class="fa fa-feather" aria-hidden="true"></i></span>
                 <span *ngIf="item.oversized" class="icon is-small is-warning"><i class="fa fa-weight-hanging" aria-hidden="true"></i></span>
             </td>
-            <td>
+            <td class="has-text-right">
               <button class="button is-outlined is-info" (click)="addEquipment(item)" [disabled]="item.cost > character.silver">Buy</button>
             </td>
           </tr>

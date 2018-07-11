@@ -68,9 +68,10 @@ export const rangedWeaponList: LotfpRangedWeapon[] = [
 
 // Projectiles
 export const projectileList: LotfpEquipment[] = [
-    { name: 'Arrow', cost: 5, encumbering: false, oversized: false },
-    { name: 'Crossbow bolt', cost: 5, encumbering: false, oversized: false },
-    { name: 'Sling bullet', cost: 2, encumbering: false, oversized: false }
+    { name: 'Arrow', cost: 0.10, encumbering: false, oversized: false },
+    { name: 'Crossbow bolt', cost: 0.10, encumbering: false, oversized: false },
+    { name: 'Sling bullet', cost: 0.15, encumbering: false, oversized: false },
+    { name: 'Dart', cost: 0.05, encumbering: false, oversized: false }
 ];
 
 // Animals
@@ -116,9 +117,9 @@ export const vehicleList: LotfpEquipment[] = [
 ];
 
 export const foodList: LotfpEquipment[] = [
-    { name: 'Bottle of wine/liqour, poor', cost: 0.01, encumbering: true, oversized: false },
-    { name: 'Bottle of wine/liqour, decent', cost: 1, encumbering: true, oversized: false },
-    { name: 'Bottle of wine/liqour, rich', cost: 10, encumbering: true, oversized: false },
+    { name: 'Bottle of wine/liquor, poor', cost: 0.01, encumbering: true, oversized: false },
+    { name: 'Bottle of wine/liquor, decent', cost: 1, encumbering: true, oversized: false },
+    { name: 'Bottle of wine/liquor, rich', cost: 10, encumbering: true, oversized: false },
     { name: 'Drink, cheap', cost: 0.01, encumbering: true, oversized: false },
     { name: 'Drink, decent', cost: 0.05, encumbering: true, oversized: false },
     { name: 'Drink, good', cost: 0.1, encumbering: true, oversized: false },
