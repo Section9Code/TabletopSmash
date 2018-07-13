@@ -20,7 +20,10 @@ export class CharacterListComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const dataObservable = await this.characterService.getMine();
-    this.charactersSub = dataObservable.subscribe(data => this.characters = data);
+    this.charactersSub = dataObservable.subscribe(data => {
+      // Sort by name
+      this.characters = data.sort((a, b) => a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1);
+    });
   }
 
   ngOnDestroy(): void {
