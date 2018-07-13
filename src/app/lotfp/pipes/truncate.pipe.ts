@@ -6,7 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TruncatePipe implements PipeTransform {
 
   transform(value: string, limit = 25, completeWords = false, ellipsis = '...') {
-    if(value.length < limit) {
+    if (!value ) { return; }
+  
+    if (value.length < limit) {
       // Do nothing, not long enough
       return value;
     }

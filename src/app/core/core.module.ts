@@ -5,6 +5,8 @@ import { AuthGuard } from './auth.guard';
 import { NotifyService } from './notify.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
+import { AlertService } from './alert.service';
+import { TrackingService } from './tracking.service';
 
 @NgModule({
   imports:[
@@ -13,7 +15,9 @@ import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.com
   providers: [
     AuthService,
     AuthGuard,
-    NotifyService
+    NotifyService,
+    TrackingService,
+    AlertService
   ],
   declarations: [
     ModalDialogComponent
