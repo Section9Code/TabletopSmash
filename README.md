@@ -3,6 +3,8 @@ Tabletop Smash is an Angular site to let people create and manage their OSR Char
 
 It is based on the [Angular FireStarter project](https://github.com/codediodeio/angular-firestarter) for it base and uses [Firebase](https://firebase.google.com/) as its database.
 
+[Go to the live site](https://tabletopsmash.com)
+
 ## Running locally
 
 #### Prerequisites
