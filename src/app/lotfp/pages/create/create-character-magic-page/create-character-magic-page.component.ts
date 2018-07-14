@@ -64,6 +64,8 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
           if (this.spellsForUser && this.spellsForUser.length > 0) {
 
             // Sort characters spells
+            if (!this.character.spells) { this.character.spells = []; }
+
             this.character.spells = this.character.spells.sort((a, b) => {
               if (a.level !== b.level) {
                 // Level sort
@@ -73,8 +75,8 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
               }
             });
 
-             // Reset the current spells being shown to level 1
-             if (this.currentLevel === 0) {
+            // Reset the current spells being shown to level 1
+            if (this.currentLevel === 0) {
               this.showSpells(1);
             } else {
               this.showSpells(this.currentLevel);
