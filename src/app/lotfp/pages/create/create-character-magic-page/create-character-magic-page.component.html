@@ -1,8 +1,10 @@
 <div class="container">
+  <!-- Progress bar -->
   <character-creator-progress [step]="'magic'" [character]="character"></character-creator-progress>
   <div class="columns is-desktop">
     <div class="column is-two-thirds">
 
+      <!-- No magic for this characters -->
       <div *ngIf="!character.level1Spells || character.level1Spells === 0">
         <section class="section">
           <h3>No magic for you</h3>
@@ -18,33 +20,60 @@
       <!-- Magic user section -->
       <section class="section" *ngIf="character.level1Spells && character.level1Spells > 0">
         <h3>Magic</h3>
-        <div class="columns">
-          <div class="column is-half">
-            <h4>{{ character.characterClass }} spells</h4>
-            <p>
-              You can select a number of spells to fill your spell slots on the right.
-            </p>
-          </div>
-          <div class="is-half">
-
-            <!-- Spell list -->
-            <div *ngIf="character.spells">
-              <h4>Character spells</h4>
-              <div *ngFor="let spell of character.spells">
-                - {{ spell.name }} (Lvl:{{ spell.level }}) -
-                <a [routerLink]="" (click)="removeSpell(spell)">Remove</a>
-              </div>
-            </div>
-
-            <div *ngIf="!character.spells || character.spells.length === 0">
-              -- No spells selected --
-            </div>
-
-
-
-          </div>
+        <p>
+          Your character needs magic
+        </p>
+        
+        <!-- Level tab -->
+        <div class="tabs is-small">
+          <ul>
+            <li [ngClass]="{'is-active': currentLevel === 1}" (click)="showSpells(1)"><a>Lvl 1</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 2}" (click)="showSpells(2)"><a>Lvl 2</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 3}" (click)="showSpells(3)"><a>Lvl 3</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 4}" (click)="showSpells(4)"><a>Lvl 4</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 5}" (click)="showSpells(5)"><a>Lvl 5</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 6}" (click)="showSpells(6)"><a>Lvl 6</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 7}" (click)="showSpells(7)"><a>Lvl 7</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 8}" (click)="showSpells(8)"><a>Lvl 8</a></li>
+            <li [ngClass]="{'is-active': currentLevel === 9}" (click)="showSpells(9)"><a>Lvl 9</a></li>
+          </ul>
         </div>
 
+        <!-- Spell list -->
+        <h4>Level {{ currentLevel }} - You have <b>{{ currentLevelSlots }}</b> slots </h4>
+        <div *ngIf="character.spells">
+        
+          <div *ngFor="let spell of currentLevelCharacterSpells" class="tag is-medium is-light">
+            {{ spell.name }} (Lvl:{{ spell.level }})
+            <button class="delete is-small" (click)="removeSpell(spell)"></button>
+          </div>
+          
+          <div *ngFor="let empty of currentLevelEmptySlots" class="tag is-warning">-- EMPTY SPELL SLOT --</div>
+          
+        </div>
+
+
+        <!-- Spells table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let spell of currentLevelSpells">              
+              <td>{{ spell.name }}</td>
+              <td></td>
+              <td class="has-text-right">
+                <button class="button is-outlined is-info" (click)="spellSelected(spell)" [disabled]="spellDisabled(spell)">Add</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+<!-- 
         <div class="columns">
           <div class="column is-one-third">
             <h5>Level 1</h5>
@@ -89,7 +118,7 @@
             <spell-list [spells]="spellsForUser" [levelToShow]="9" [character]="character" (spellSelected)="onSpellSelected($event)"></spell-list>
           </div>
         </div>
-
+ -->
 
 
       </section>

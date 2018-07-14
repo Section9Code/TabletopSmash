@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LotfpCharacter } from '../../../models/models';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { CharacterService } from '../../../services/character.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, ChildActivationEnd } from '@angular/router';
 import { LotfpSpell, clericSpells, magicUserSpells } from '../../../models/spells';
 import { ToastyService } from 'ng2-toasty';
 
@@ -16,7 +16,14 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
   character: LotfpCharacter = {};
 
   // The list of spells to show to the user
-  spellsForUser: BehaviorSubject<LotfpSpell[]>;
+  spellsForUser: LotfpSpell[];
+
+  // Show the user their spells
+  currentLevel = 0;
+  currentLevelSpells: LotfpSpell[] = [];
+  currentLevelSlots = 0;
+  currentLevelCharacterSpells: LotfpSpell[] = [];
+  currentLevelEmptySlots = [];
 
   // Subscriptions
   routerSub: Subscription;
@@ -27,7 +34,6 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private toast: ToastyService) {
-    this.spellsForUser = new BehaviorSubject<LotfpSpell[]>([]);
   }
 
   ngOnInit() {
@@ -45,26 +51,37 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
           // What spells to show
           switch (this.character.characterClass.toLocaleLowerCase()) {
             case 'cleric':
-              this.spellsForUser.next(clericSpells);
-              console.log('Set cleric spells', this.spellsForUser.getValue());
+              this.spellsForUser = clericSpells;
               break;
 
             case 'elf':
             case 'magic user':
-              this.spellsForUser.next(magicUserSpells);
-              console.log('Set magic user spells', this.spellsForUser.getValue());
+              this.spellsForUser = magicUserSpells;
               break;
           }
 
-          // Sort characters spells
-          this.character.spells = this.character.spells.sort((a,b) => {
-            if(a.level !== b.level) {
-              // Level sort
-              return (a.level < b.level) ? -1 : 1;
+          // Does the user have access to spells
+          if (this.spellsForUser && this.spellsForUser.length > 0) {
+
+            // Sort characters spells
+            this.character.spells = this.character.spells.sort((a, b) => {
+              if (a.level !== b.level) {
+                // Level sort
+                return (a.level < b.level) ? -1 : 1;
+              } else {
+                return (a.name < b.name) ? -1 : 1;
+              }
+            });
+
+             // Reset the current spells being shown to level 1
+             if (this.currentLevel === 0) {
+              this.showSpells(1);
             } else {
-              return (a.name < b.name) ? -1 : 1;
+              this.showSpells(this.currentLevel);
             }
-          });
+
+          }
+
         }
       });
     });
@@ -75,7 +92,30 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
     this.characterSub.unsubscribe();
   }
 
-  onSpellSelected(spell: LotfpSpell) {
+  showSpells(level: number) {
+    console.log('Show spells', level);
+    this.currentLevel = level;
+    this.currentLevelSpells = this.spellsForUser.filter(s => s.level === this.currentLevel);
+
+    // Available slots
+    this.currentLevelSlots = this.character[`level${level}Spells`];
+    this.currentLevelCharacterSpells = this.character.spells.filter(s => s.level === this.currentLevel);
+    this.currentLevelEmptySlots = Array(this.currentLevelSlots - this.currentLevelCharacterSpells.length);
+  }
+
+  spellDisabled(spell: LotfpSpell): boolean {
+    // Any spell slots left at this level
+    if (this.currentLevelCharacterSpells.length >= this.currentLevelSlots) { return true; }
+
+    // Has the user already selected this spell
+    const index = this.currentLevelCharacterSpells.findIndex(s => s.name === spell.name);
+    if (index !== -1) { return true; }
+
+    // Not disabled
+    return false;
+  }
+
+  spellSelected(spell: LotfpSpell) {
     // Check the user has space for this spell
     if (!this.hasSpaceForSpell(spell)) {
       this.toast.warning(`No more space for level ${spell.level} spells`);
@@ -115,6 +155,8 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
       case 5: numberOfSlots = this.character.level5Spells; break;
       case 6: numberOfSlots = this.character.level6Spells; break;
       case 7: numberOfSlots = this.character.level7Spells; break;
+      case 8: numberOfSlots = this.character.level8Spells; break;
+      case 9: numberOfSlots = this.character.level9Spells; break;
     }
 
     // Has slots
