@@ -3,7 +3,7 @@ import { LotfpCharacter } from '../../../models/models';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { CharacterService } from '../../../services/character.service';
 import { Router, ActivatedRoute, Params, ChildActivationEnd } from '@angular/router';
-import { LotfpSpell, clericSpells, magicUserSpells } from '../../../models/spells';
+import { LotfpSpell, clericSpells, magicUserSpells, LotfpSpellDetails } from '../../../models/spells';
 import { ToastyService } from 'ng2-toasty';
 
 @Component({
@@ -16,11 +16,11 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
   character: LotfpCharacter = {};
 
   // The list of spells to show to the user
-  spellsForUser: LotfpSpell[];
+  spellsForUser: LotfpSpellDetails[];
 
   // Show the user their spells
   currentLevel = 0;
-  currentLevelSpells: LotfpSpell[] = [];
+  currentLevelSpells: LotfpSpellDetails[] = [];
   currentLevelSlots = 0;
   currentLevelCharacterSpells: LotfpSpell[] = [];
   currentLevelEmptySlots = [];
