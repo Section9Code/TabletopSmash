@@ -1,13 +1,55 @@
 <div class="outsideWrapper">
     <div class="insideWrapper">
         <img #sheet1 src="/assets/images/sheets/lotfpPage1.jpg" class="coveredImage">
-        <canvas #sheet1Canvas (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas" width="1000" height="1414"></canvas>
+        <canvas #sheet1Canvas (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas"
+            width="1000" height="1414"></canvas>
     </div>
 </div>
 
 <div class="outsideWrapper pagebreak">
     <div class="insideWrapper">
         <img #sheet2 src="/assets/images/sheets/lotfpPage2.jpg" class="coveredImage">
-        <canvas #sheet2Canvas (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)"  class="coveringCanvas" width="1000" height="1414"></canvas>
+        <canvas #sheet2Canvas (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas"
+            width="1000" height="1414"></canvas>
+    </div>
+</div>
+
+<div class="outsideWrapper pagebreak" *ngIf="showMagic1">
+    <div class="insideWrapper">
+        <!-- <img #magic1 src="/assets/images/sheets/lotfpPage2.jpg" class="coveredImage"> -->
+        <canvas #magic1 (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas" width="1000"
+            height="1414"></canvas>
+    </div>
+</div>
+
+<div class="outsideWrapper pagebreak" *ngIf="showMagic2">
+    <div class="insideWrapper">
+        <!-- <img #magic1 src="/assets/images/sheets/lotfpPage2.jpg" class="coveredImage"> -->
+        <canvas #magic2 (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas" width="1000"
+            height="1414"></canvas>
+    </div>
+</div>
+
+<div class="outsideWrapper pagebreak" *ngIf="showMagic3">
+    <div class="insideWrapper">
+        <!-- <img #magic1 src="/assets/images/sheets/lotfpPage2.jpg" class="coveredImage"> -->
+        <canvas #magic3 (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas" width="1000"
+            height="1414"></canvas>
+    </div>
+</div>
+
+<div class="outsideWrapper pagebreak" *ngIf="showMagic4">
+    <div class="insideWrapper">
+        <!-- <img #magic1 src="/assets/images/sheets/lotfpPage2.jpg" class="coveredImage"> -->
+        <canvas #magic4 (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas" width="1000"
+            height="1414"></canvas>
+    </div>
+</div>
+
+<div class="outsideWrapper pagebreak" *ngIf="showMagic5">
+    <div class="insideWrapper">
+        <!-- <img #magic1 src="/assets/images/sheets/lotfpPage2.jpg" class="coveredImage"> -->
+        <canvas #magic5 (mousedown)="canvasOnMouseDown($event)" (mouseup)="canvasOnMouseUp($event)" class="coveringCanvas" width="1000"
+            height="1414"></canvas>
     </div>
 </div>

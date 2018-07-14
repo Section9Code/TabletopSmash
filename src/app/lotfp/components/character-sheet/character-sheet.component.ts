@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LotfpCharacter } from '../../models/models';
 import { LotfpWeapon, LotfpRangedWeapon, LotfpArmour } from '../../models/equipment';
+import { LotfpSpell, LotfpSpellDetails, clericSpells, magicUserSpells } from '../../models/spells';
 
 @Component({
   selector: 'character-sheet',
@@ -13,10 +14,23 @@ export class CharacterSheetComponent implements OnInit {
   // get the element with the #chessCanvas on it
   @ViewChild('sheet1Canvas') sheet1: ElementRef;
   @ViewChild('sheet2Canvas') sheet2: ElementRef;
+  @ViewChild('magic1') magic1: ElementRef;
+  @ViewChild('magic2') magic2: ElementRef;
+  @ViewChild('magic3') magic3: ElementRef;
+  @ViewChild('magic4') magic4: ElementRef;
+  @ViewChild('magic5') magic5: ElementRef;
 
+  showMagic1 = true;
+  showMagic2 = true;
+  showMagic3 = true;
+  showMagic4 = true;
+  showMagic5 = true;
+
+  // Measure space
   measureStartingX: number;
   measureStartingY: number;
 
+  // Print settings
   FONT_SIZE_PIXELS = 30;
   FONT_SMALL_SIZE_PIXELS = 20;
   FONT_FAMILY = 'Arial';
@@ -57,6 +71,10 @@ export class CharacterSheetComponent implements OnInit {
 
     this.renderSheet1(context, 1000, 1414);
     this.renderSheet2(context2, 1000, 1414);
+
+    if (this.character.spells.length > 0) {
+      this.renderMagicSheets();
+    }
   }
 
   // Render the first character sheet
@@ -75,6 +93,7 @@ export class CharacterSheetComponent implements OnInit {
     this.drawText(context, this.character.sex, 566, 153, 614, 175, this.FONT_SMALL_SIZE_PIXELS);
 
     // Ability scores
+    console.log('Charisma', this.character.charisma);
     this.drawText(context, this.character.charisma.value, 117, 258, 167, 309, this.FONT_SIZE_PIXELS);
     this.drawText(context, this.character.charisma.modifier, 178, 258, 226, 309, this.FONT_SIZE_PIXELS);
     this.drawText(context, this.character.constitution.value, 117, 342, 166, 392, this.FONT_SIZE_PIXELS);
@@ -165,6 +184,219 @@ export class CharacterSheetComponent implements OnInit {
     this.renderEquipmentList(context);
   }
 
+
+  // Render all of the magic sheets
+  private renderMagicSheets() {
+    const allSpells: LotfpSpell[] = this.character.spells.sort((a, b) => this.sortSpells(a, b));
+    const chunkedSpells = this.chunkSpells(allSpells, 9);
+
+    for (let i = 0; i < chunkedSpells.length; i++) {
+
+      let viewChild;
+
+      switch (i) {
+        case 0:
+          viewChild = this.magic1;
+          break;
+        case 1:
+          viewChild = this.magic2;
+          break;
+        case 2:
+          viewChild = this.magic3;
+          break;
+        case 3:
+          viewChild = this.magic4;
+          break;
+        case 4:
+          viewChild = this.magic5;
+          break;
+      }
+
+      const context: CanvasRenderingContext2D = viewChild.nativeElement.getContext('2d');
+      this.renderMagicSheet(context, chunkedSpells[i]);
+    }
+
+    // Hide unneeded spell sheets
+    console.log('Chunked spells', chunkedSpells);
+    if (chunkedSpells.length < 5) { this.showMagic5 = false; }
+    if (chunkedSpells.length < 4) { this.showMagic4 = false; }
+    if (chunkedSpells.length < 3) { this.showMagic3 = false; }
+    if (chunkedSpells.length < 2) { this.showMagic2 = false; }
+    if (chunkedSpells.length < 1) { this.showMagic1 = false; }
+  }
+
+  // Sort a list of spells into order
+  private sortSpells(a, b): number {
+    if (a.level !== b.level) {
+      // Level sort
+      return (a.level < b.level) ? -1 : 1;
+    } else {
+      return (a.name < b.name) ? -1 : 1;
+    }
+  }
+
+  private chunkSpells(allSpells: LotfpSpell[], perChunk: number): any[] {
+    const outer = [];
+
+    let index = 0;
+    let inner = [];
+    for (let i = 0; i < allSpells.length; i++) {
+      inner.push(allSpells[i]);
+      index++;
+      if (index === perChunk) {
+        outer.push(inner);
+        inner = [];
+        index = 0;
+      }
+    }
+
+    // Get any last items into the array
+    if (inner.length > 0) {
+      outer.push(inner);
+    }
+
+    return outer;
+  }
+
+  private renderMagicSheet(context: CanvasRenderingContext2D, spells: LotfpSpell[]) {
+
+    const width = 1000;
+    const height = 1414;
+    const vLine1 = width / 3;
+    const vLine2 = (width / 3) * 2;
+
+    const hLine1 = (height / 3);
+    const hLine2 = (height / 3) * 2;
+
+    // Draw the lines on the page
+    this.drawLine(context, vLine1, 0, vLine1, height);
+    this.drawLine(context, vLine2, 0, vLine2, height);
+    this.drawLine(context, 0, hLine1, width, hLine1);
+    this.drawLine(context, 0, hLine2, width, hLine2);
+
+    // Render each of the spells
+    for (let i = 0; i < spells.length; i++) {
+      switch (i) {
+        case 0:
+          this.renderSingleSpell(context, spells[i], 0, 0, vLine1, hLine1);
+          break;
+        case 1:
+          this.renderSingleSpell(context, spells[i], vLine1, 0, vLine2, hLine1);
+          break;
+        case 2:
+          this.renderSingleSpell(context, spells[i], vLine2, 0, width, hLine1);
+          break;
+
+        case 3:
+          this.renderSingleSpell(context, spells[i], 0, hLine1, vLine1, hLine2);
+          break;
+        case 4:
+          this.renderSingleSpell(context, spells[i], vLine1, hLine1, vLine2, hLine2);
+          break;
+        case 5:
+          this.renderSingleSpell(context, spells[i], vLine2, hLine1, width, hLine2);
+          break;
+
+        case 6:
+          this.renderSingleSpell(context, spells[i], 0, hLine2, vLine1, height);
+          break;
+        case 7:
+          this.renderSingleSpell(context, spells[i], vLine1, hLine2, vLine2, height);
+          break;
+        case 8:
+          this.renderSingleSpell(context, spells[i], vLine2, hLine2, width, height);
+          break;
+
+      }
+    }
+  }
+
+  renderSingleSpell(ctx: CanvasRenderingContext2D, spell: LotfpSpell, x, y, x2, y2) {
+    if (this.SHOW_BOUNDS) {
+      ctx.beginPath();
+      ctx.strokeStyle = '#39FF14';
+      ctx.rect(x, y, x2, y2);
+      ctx.stroke();
+    }
+
+    const spellDetails = this.spellDetails(spell);
+    // Draw spell heading
+    this.drawText(ctx, spell.name, x, y, x2, y + this.FONT_SIZE_PIXELS, this.FONT_SIZE_PIXELS, true, true);
+    this.drawText(ctx, `Duration: ${spellDetails.duration}`, x + 10, y + 35, x2 - 10, y + 55, this.FONT_SMALL_SIZE_PIXELS, false);
+    this.drawText(ctx, `Range: ${spellDetails.duration}`, x + 10, y + 60, x2 - 10, y + 80, this.FONT_SMALL_SIZE_PIXELS, false);
+    this.drawTextbox(ctx, spellDetails.description, x + 10, y + 85, x2 - 10, y2 - 5, 11);
+  }
+
+  private drawTextbox(ctx: CanvasRenderingContext2D, text: string, x, y, x2, y2, fontSize: number) {
+
+    // Remove special characters
+    text = text.replace(/<i>/gi, '');
+    text = text.replace(/<\/i>/gi, '');
+    text = text.replace(/<p>/gi, '');
+    text = text.replace(/<\/p>/gi, ' // // ');
+    text = text.replace(/<ul>/gi, '');
+    text = text.replace(/<\/ul>/gi, '');
+    text = text.replace(/<li>/gi, ' // - ');
+    text = text.replace(/<\/li>/gi, '');
+
+
+
+    ctx.font = fontSize + 'px Arial';
+    const words = text.split(' ');
+    let lineTest = '';
+    let line = '';
+    let len = words.length;
+    const width = x2 - x;
+    let currentY = 0;
+    const lines = [];
+
+    for (let i = 0; i < len; i++) {
+      if (words[i] === '//') {
+        // New Line
+        currentY = lines.length * fontSize + fontSize;
+        lines.push({ text: line, height: currentY });
+        line = '';
+        continue;
+      }
+
+      lineTest = line + words[i].trim() + ' ';
+
+      // Check total width of line or last word
+      if (ctx.measureText(lineTest).width > width) {
+        // Calculate the new height
+        currentY = lines.length * fontSize + fontSize;
+
+        // Record and reset the current line
+        lines.push({ text: line, height: currentY });
+        line = words[i] + ' ';
+      } else {
+        line = lineTest;
+      }
+    }
+
+    // Catch last line in-case something is left over
+    if (line.length > 0) {
+      currentY = lines.length * fontSize + fontSize;
+      lines.push({ text: line.trim(), height: currentY });
+    }
+
+    // Visually output text
+    len = lines.length;
+    for (let q = 0; q < len; q++) {
+      ctx.fillText(lines[q].text, x, y + lines[q].height);
+    }
+  }
+
+
+  spellDetails(spell: LotfpSpell): LotfpSpellDetails {
+    let details = clericSpells.find(s => s.name === spell.name && s.level === spell.level);
+    if (details) { return details; }
+
+    details = magicUserSpells.find(s => s.name === spell.name && s.level === spell.level);
+    if (details) { return details; }
+
+    return null;
+  }
 
   private weaponTextRanges(weapons: LotfpWeapon[], ranged: LotfpRangedWeapon[]): string[] {
     const list: string[] = [];
@@ -350,6 +582,8 @@ export class CharacterSheetComponent implements OnInit {
 
   // Draw text on the page in a certain area
   private drawText(ctx: CanvasRenderingContext2D, text: any, topLeftX: number, topLeftY: number, bottomRightX: number, bottomRightY: number, fontSize: number, center: boolean = true, dynamicResize = true) {
+    if (text === 0) { text = '0'; }
+
     if (!text) { return; }
 
     const width = bottomRightX - topLeftX;
@@ -452,6 +686,13 @@ export class CharacterSheetComponent implements OnInit {
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
     ctx.fill();
+    ctx.stroke();
+  }
+
+  drawLine(ctx: CanvasRenderingContext2D, x: number, y: number, x2: number, y2: number) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x2, y2);
     ctx.stroke();
   }
 
