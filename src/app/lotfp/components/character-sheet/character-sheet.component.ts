@@ -322,9 +322,12 @@ export class CharacterSheetComponent implements OnInit {
     const spellDetails = this.spellDetails(spell);
     // Draw spell heading
     this.drawText(ctx, spell.name, x, y, x2, y + this.FONT_SIZE_PIXELS, this.FONT_SIZE_PIXELS, true, true);
-    this.drawText(ctx, `Duration: ${spellDetails.duration}`, x + 10, y + 35, x2 - 10, y + 55, this.FONT_SMALL_SIZE_PIXELS, false);
-    this.drawText(ctx, `Range: ${spellDetails.duration}`, x + 10, y + 60, x2 - 10, y + 80, this.FONT_SMALL_SIZE_PIXELS, false);
-    this.drawTextbox(ctx, spellDetails.description, x + 10, y + 85, x2 - 10, y2 - 5, 11);
+    this.drawText(ctx, `Level: ${spellDetails.level}`, x + 10, y + 35, x + 150, y + 55, 14, false, false);
+    this.drawText(ctx, `Page: ${spellDetails.page}`, x + 250, y + 35, x2 - 5, y + 55, 14, false, false);
+    this.drawText(ctx, `Duration: ${spellDetails.duration}`, x + 10, y + 60, x2 - 10, y + 80, this.FONT_SMALL_SIZE_PIXELS, false);
+    this.drawText(ctx, `Range: ${spellDetails.duration}`, x + 10, y + 85, x2 - 10, y + 105, this.FONT_SMALL_SIZE_PIXELS, false);
+
+    this.drawTextbox(ctx, spellDetails.description, x + 10, y + 110, x2 - 10, y2 - 5, 12);
   }
 
   private drawTextbox(ctx: CanvasRenderingContext2D, text: string, x, y, x2, y2, fontSize: number) {
@@ -338,6 +341,7 @@ export class CharacterSheetComponent implements OnInit {
     text = text.replace(/<\/ul>/gi, '');
     text = text.replace(/<li>/gi, ' // - ');
     text = text.replace(/<\/li>/gi, '');
+    text = text.replace(/<br\/>/gi, ' // ');
 
 
 

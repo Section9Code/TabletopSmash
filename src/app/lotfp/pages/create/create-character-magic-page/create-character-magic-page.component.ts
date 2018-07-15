@@ -110,6 +110,10 @@ export class CreateCharacterMagicPageComponent implements OnInit, OnDestroy {
     if (this.currentLevelCharacterSpells.length >= this.currentLevelSlots) { return true; }
 
     // Has the user already selected this spell
+    return this.spellInList(spell);
+  }
+
+  spellInList(spell: LotfpSpell): boolean {
     const index = this.currentLevelCharacterSpells.findIndex(s => s.name === spell.name);
     if (index !== -1) { return true; }
 

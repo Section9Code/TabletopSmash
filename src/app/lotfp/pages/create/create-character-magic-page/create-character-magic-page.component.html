@@ -69,6 +69,7 @@
                 <div class="is-size-7">
                   Duration: <b>{{spell.duration }}</b><br/>
                   Range: <b>{{ spell.range }}</b><br/>
+                  <div class="tag is-info is-small" *ngIf="spellInList(spell)" >Selected</div>
                 </div>
               </td>
               <td [innerHtml]="spell.description"></td>
