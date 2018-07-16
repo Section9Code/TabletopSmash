@@ -325,9 +325,13 @@ export class CharacterSheetComponent implements OnInit {
     this.drawText(ctx, `Level: ${spellDetails.level}`, x + 10, y + 35, x + 150, y + 55, 14, false, false);
     this.drawText(ctx, `Page: ${spellDetails.page}`, x + 250, y + 35, x2 - 5, y + 55, 14, false, false);
     this.drawText(ctx, `Duration: ${spellDetails.duration}`, x + 10, y + 60, x2 - 10, y + 80, this.FONT_SMALL_SIZE_PIXELS, false);
-    this.drawText(ctx, `Range: ${spellDetails.duration}`, x + 10, y + 85, x2 - 10, y + 105, this.FONT_SMALL_SIZE_PIXELS, false);
+    this.drawText(ctx, `Range: ${spellDetails.range}`, x + 10, y + 85, x2 - 10, y + 105, this.FONT_SMALL_SIZE_PIXELS, false);
 
+    // Spell description
     this.drawTextbox(ctx, spellDetails.description, x + 10, y + 110, x2 - 10, y2 - 5, 12);
+
+    this.drawText(ctx, 'Used:', x2 - 60, y2 - 60, x2 - 5, y2 - 15, 12, false, false);
+    this.drawBox(ctx, x2 - 25, y2 - 29, 20, 20);
   }
 
   private drawTextbox(ctx: CanvasRenderingContext2D, text: string, x, y, x2, y2, fontSize: number) {
@@ -697,6 +701,11 @@ export class CharacterSheetComponent implements OnInit {
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  drawBox(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) {
+    ctx.rect(x, y, width, height);
     ctx.stroke();
   }
 
